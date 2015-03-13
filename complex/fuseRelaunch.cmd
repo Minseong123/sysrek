@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "/home/vka/Programming/VHDL/workspace/sysrek/complex/tb_complex_isim_beh.exe" -prj "/home/vka/Programming/VHDL/workspace/sysrek/complex/tb_complex_beh.prj" "work.tb_complex" "work.glbl" 

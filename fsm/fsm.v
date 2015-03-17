@@ -24,7 +24,8 @@ module fsm(
 	input send,
 	input [7:0] data,
 	
-	output txd
+	output txd,
+	output [1:0] s
 );
 
 localparam STATE1 = 2'b00;
@@ -62,7 +63,7 @@ begin
 		d <= tmp_data[current_bit];
 		current_bit <= current_bit + 1;
 		
-		if(current_bit  == 3'b000) state <= STATE4; // wszystkie bity wysłano 
+		if(current_bit  == 3'b111) state <= STATE4; // wszystkie bity wysłano 
 	end
 	STATE4:
 	begin
@@ -74,4 +75,5 @@ begin
 end
 
 assign txd = d;
+assign s = state;
 endmodule

@@ -53,10 +53,10 @@ module tb_or_gate;
 always
 begin: test
 	#1	i = i + 1;
-	
+	#1
 	if((i > 0 & o == 0) | (i == 0 & o == 1))
 	begin
-		$fwrite(file, "Output invalid for input %b\n", i);
+		$fwrite(file, "Output invalid for input %b = %d\n", i, i);
 		valid = 0;
 	end
 	
@@ -64,7 +64,6 @@ begin: test
 	begin
 		if(valid == 1'b1) $fwrite("Test successful.\n");
 		$fclose(file);
-		//disable test;
 	end;
 	
 	

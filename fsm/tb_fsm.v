@@ -24,27 +24,32 @@
 
 module load_file
 (
-	output [7:0] out
+	output [7:0] out,
+	output send
 );
 
 integer file;
-reg [7:0]c;
-reg [7:0]i = 0;
+reg [7:0] c;
+reg s;
+reg [7:0] i = 0;
 
 initial
 begin
 	file=$fopen("data/input.data", "r");
-	#1;
 	for(i = 0; i < 16; i = i + 1)
 	begin
-		#24;
 		c=$fgetc(file);
-		#24;
+		s = 1;
+		#4;
+		s = 0;
+		#44;
 	end
 	$fclose(file);
 end
 
 assign out = c;
+assign send = s;
+
 
 endmodule
 
@@ -61,7 +66,6 @@ reg [7:0] data = 8'b00110000;
 initial
 begin
 	file=$fopen("data/output.ise", "wb");
-	#51;
 	for(i = 0; i < 16; i = i + 1)
 	begin
 		for(j = 0; j < 12; j = j +1)
@@ -80,25 +84,24 @@ module tb_fsm;
 
 	// Inputs
 	reg clk;
-	reg send;
-	reg [7:0] data_out;
-	reg [3:0] i;
 
 	// Outputs
 	wire txd;
 	wire [1:0] state;
-	wire [7:0] data_in;
+	wire [7:0] data;
+	wire send;
 
 	fsm uut (
 		.clk(clk), 
 		.send(send), 
-		.data(data_out), 
+		.data(data), 
 		.txd(txd),
 		.s(state)
 	);
 	
 	load_file load (
-		.out(data_in)	
+		.out(data),
+		.send(send)
 	);
 	
 	save_file save (
@@ -108,9 +111,6 @@ module tb_fsm;
 	initial begin
 		// Initialize Inputs
 		clk = 0;
-		send = 0;
-		data_out = 0;
-		i = 0;
 		// Wait 100 ns for global reset to finish
 		#100;
 		// Add stimulus here
@@ -119,19 +119,7 @@ module tb_fsm;
 	end
 always
 begin
-	
-	#1 data_out = data_in;
-	#1 clk = ~clk;
 	#2 clk = ~clk;
-	#1 send = 1;
-	#1 clk = ~clk;
-	#1 send = 0;
-	#1 clk = ~clk;
-	for(i = 0; i < 10; i = i + 1)
-	begin
-		#2 clk = ~clk;
-		#2 clk = ~clk;
-	end;
 end
 endmodule
 

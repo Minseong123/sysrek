@@ -84,6 +84,7 @@ module tb_fsm;
 
 	// Inputs
 	reg clk;
+	reg rst;
 
 	// Outputs
 	wire txd;
@@ -111,6 +112,7 @@ module tb_fsm;
 	initial begin
 		// Initialize Inputs
 		clk = 0;
+		rst = 0;
 		// Wait 100 ns for global reset to finish
 		#100;
 		// Add stimulus here

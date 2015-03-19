@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module fsm(
 	input clk,
-	//input rst,
+	input rst,
 	input send,
 	input [7:0] data,
 	
@@ -41,7 +41,11 @@ reg d = 1'b0;
 
 always @(posedge clk)
 begin
-	//sprawdz wartosc clk
+	if(rst)
+	begin
+		d <= 0;
+		state <= STATE1;
+	end
 	case(state)
 	STATE1:
 	begin
@@ -63,7 +67,7 @@ begin
 		d <= tmp_data[current_bit];
 		current_bit <= current_bit + 1;
 		
-		if(current_bit  == 3'b111) state <= STATE4; // wszystkie bity wysłano 
+		if(current_bit  == 3'b111) state <= STATE4; // wszystkie bity wysano 
 	end
 	STATE4:
 	begin
@@ -71,6 +75,7 @@ begin
 		state <= STATE1;
 	end
 	endcase
+	
 	last_send_val <= send;
 end
 

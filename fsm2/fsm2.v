@@ -30,9 +30,8 @@ module fsm2(
 localparam STATE1 = 2'b00;
 localparam STATE2 = 2'b01;
 localparam STATE3 = 2'b10;
-//localparam STATE4 = 2'b11;
 
-reg state = STATE1;
+reg [1:0] state = STATE1;
 reg [7:0] tmp_data = 8'b00000000;
 reg tmp_received = 1'b0;
 reg [2:0] index;
@@ -44,6 +43,7 @@ begin
 	begin
 		tmp_data = 0;
 		tmp_received = 0;
+		rxd_hist = 2'b11; // dla bezpieczenstwa poczekaj 2 cykle zegara przed 1. odbiorem
 		state = STATE1;
 	end
 	
@@ -67,6 +67,7 @@ begin
 		begin
 			tmp_received = 1'b1;
 			state = STATE3;
+			index = 3'b000;
 		end
 	end
 	STATE3:

@@ -50,64 +50,56 @@ end
 assign out = c;
 assign send = s;
 
-
 endmodule
 
 module save_file
 (
-	input c
+	input [7:0] c,
+	input received
 );
 
 integer file;
-reg [7:0] i;
-reg [7:0] j;
-reg [7:0] data = 8'b00110000;
 
 initial
 begin
 	file=$fopen("data/output.ise", "wb");
-	for(i = 0; i < 16; i = i + 1)
-	begin
-		for(j = 0; j < 12; j = j +1)
-		begin
-			#4;
-			data[0] = c;
-			$fwrite(file, "%c", data);
-		end
-		$fwrite(file, "%c", "\n");
-	end
+	
+	repeat (16) begin
+      @(posedge received);
+      $fwrite(file, "%c", c);
+   end
+	$fwrite(file, "\n");
 	$fclose(file);
 end
 endmodule
-
-
 
 module tb_fsm2;
 
 	// Inputs
 	reg clk;
-	reg rst;
-	reg rxd;
-
+	reg rst; //reset jest wspólny dla uproszczenia układu
+	
 	// Outputs
+	wire rxd;
 	wire [7:0] data;
+	wire [7:0] data_out;
 	wire received;
 	
-
 	// Instantiate the Unit Under Test (UUT)
 	fsm2 uut (
 		.clk(clk), 
 		.rst(rst), 
 		.rxd(rxd), 
-		.data(data), 
+		.data(data_out), 
 		.received(received)
 	);
 	
-	fsm uut2 (
+	fsm serial (
 		.clk(clk),
 		.send(send),
 		.data(data),
-		.txd(rxd)
+		.txd(rxd),
+		.rst(rst)
 	);
 	
 	load_file load (
@@ -116,23 +108,18 @@ module tb_fsm2;
 	);
 	
 	save_file save (
-		.c(txd)
+		.c(data_out),
+		.received(received)
 	);
 
 	initial begin
 		// Initialize Inputs
 		clk = 0;
 		rst = 0;
-		rxd = 0;
-
 		// Wait 100 ns for global reset to finish
 		#100;
-        
-	always
-	begin
-		#1 clk = ~clk;
-	end;
-	end
-      
-endmodule
 
+	end
+always #2 clk = ~clk;
+ 
+endmodule

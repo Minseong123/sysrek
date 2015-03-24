@@ -1,0 +1,5 @@
+verilog work "register.v"
+verilog work "ipcore_dir/mul.v"
+verilog work "ipcore_dir/add.v"
+verilog work "delay.v"
+verilog work "arithm.v"

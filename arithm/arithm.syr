@@ -1,0 +1,440 @@
+Release 14.7 - xst P.20131013 (lin)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.04 secs
+ 
+--> 
+Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.04 secs
+ 
+--> 
+Reading design: arithm.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+	9.1) Device utilization summary
+	9.2) Partition Resource Summary
+	9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "arithm.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "arithm"
+Output Format                      : NGC
+Target Device                      : xc3s500e-4-fg320
+
+---- Source Options
+Top Module Name                    : arithm
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : Yes
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : Yes
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100000
+Add Generic Clock Buffer(BUFG)     : 24
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+---- Other Options
+Cores Search Directories           : {"ipcore_dir"  }
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling verilog file "register.v" in library work
+Compiling verilog file "ipcore_dir/mul.v" in library work
+Module <register> compiled
+Compiling verilog file "ipcore_dir/add.v" in library work
+Module <mul> compiled
+Compiling verilog file "delay.v" in library work
+Module <add> compiled
+Compiling verilog file "arithm.v" in library work
+Module <delay> compiled
+Module <arithm> compiled
+No errors in compilation
+Analysis of file <"arithm.prj"> succeeded.
+ 
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for module <arithm> in library <work>.
+
+Analyzing hierarchy for module <delay> in library <work> with parameters.
+	DELAY = "00000000000000000000000000000010"
+	N = "00000000000000000000000000001110"
+
+Analyzing hierarchy for module <register> in library <work> with parameters.
+	N = "00000000000000000000000000001110"
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing top module <arithm>.
+WARNING:Xst:2211 - "ipcore_dir/add.v" line 36: Instantiating black box module <add>.
+WARNING:Xst:2211 - "ipcore_dir/mul.v" line 56: Instantiating black box module <mul>.
+Module <arithm> is correct for synthesis.
+ 
+    Set user-defined property "SYN_BLACK_BOX =  1" for instance <dodawanie> in unit <arithm>.
+    Set user-defined property "SYN_NOPRUNE =  1" for instance <dodawanie> in unit <arithm>.
+    Set user-defined property "SYN_BLACK_BOX =  1" for instance <your_instance_name> in unit <arithm>.
+    Set user-defined property "SYN_NOPRUNE =  1" for instance <your_instance_name> in unit <arithm>.
+    Set property "SYN_NOPRUNE = 1" for unit <add>.
+Analyzing module <delay> in library <work>.
+	DELAY = 32'sb00000000000000000000000000000010
+	N = 32'sb00000000000000000000000000001110
+Module <delay> is correct for synthesis.
+ 
+Analyzing module <register> in library <work>.
+	N = 32'sb00000000000000000000000000001110
+Module <register> is correct for synthesis.
+ 
+    Set property "SYN_NOPRUNE = 1" for unit <mul>.
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <register>.
+    Related source file is "register.v".
+    Found 14-bit register for signal <val>.
+    Summary:
+	inferred  14 D-type flip-flop(s).
+Unit <register> synthesized.
+
+
+Synthesizing Unit <delay>.
+    Related source file is "delay.v".
+Unit <delay> synthesized.
+
+
+Synthesizing Unit <arithm>.
+    Related source file is "arithm.v".
+WARNING:Xst:646 - Signal <wynik<12:0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+Unit <arithm> synthesized.
+
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Registers                                            : 2
+ 14-bit register                                       : 2
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Reading core <ipcore_dir/add.ngc>.
+Reading Secure Unit <blk00000001>.
+Reading core <ipcore_dir/mul.ngc>.
+Reading Secure Unit <blk00000001>.
+Loading core <add> for timing and area information for instance <dodawanie>.
+Loading core <mul> for timing and area information for instance <your_instance_name>.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# Registers                                            : 28
+ Flip-Flops                                            : 28
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+
+Optimizing unit <arithm> ...
+
+Optimizing unit <register> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block arithm, actual ratio is 1.
+
+Final Macro Processing ...
+
+Processing Unit <arithm> :
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_13>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_12>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_11>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_10>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_9>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_8>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_7>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_6>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_5>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_4>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_3>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_2>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_1>.
+	Found 2-bit shift register for signal <opoznienie/regs[1].reg_i/val_0>.
+Unit <arithm> processed.
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Shift Registers                                      : 14
+ 2-bit shift register                                  : 14
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : arithm.ngr
+Top Level Output File Name         : arithm
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : No
+
+Design Statistics
+# IOs                              : 58
+
+Cell Usage :
+# BELS                             : 1
+#      GND                         : 1
+# FlipFlops/Latches                : 14
+#      FDE                         : 14
+# Shift Registers                  : 14
+#      SRL16E                      : 14
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 57
+#      IBUF                        : 43
+#      OBUF                        : 14
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 3s500efg320-4 
+
+ Number of Slices:                        7  out of   4656     0%  
+ Number of Slice Flip Flops:             14  out of   9312     0%  
+ Number of 4 input LUTs:                 14  out of   9312     0%  
+    Number used as logic:                 0
+    Number used as Shift registers:      14
+ Number of IOs:                          58
+ Number of bonded IOBs:                  58  out of    232    25%  
+ Number of GCLKs:                         1  out of     24     4%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 86    |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -4
+
+   Minimum period: 4.014ns (Maximum Frequency: 249.128MHz)
+   Minimum input arrival time before clock: 4.501ns
+   Maximum output required time after clock: 4.283ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clk'
+  Clock period: 4.014ns (frequency: 249.128MHz)
+  Total number of paths / destination ports: 120 / 92
+-------------------------------------------------------------------------
+Delay:               4.014ns (Levels of Logic = 0)
+  Source:            sec_inst (FF)
+  Destination:       sec_inst (FF)
+  Source Clock:      clk rising
+  Destination Clock: clk rising
+
+  Data Path: sec_inst to sec_inst
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     SEC:CLK->out          1   3.706   0.000  sec_inst (sec_net)
+     SEC:in                    0.308          sec_inst
+    ----------------------------------------
+    Total                      4.014ns (4.014ns logic, 0.000ns route)
+                                       (100.0% logic, 0.0% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
+  Total number of paths / destination ports: 246 / 86
+-------------------------------------------------------------------------
+Offset:              4.501ns (Levels of Logic = 10)
+  Source:            B<0> (PAD)
+  Destination:       sec_inst (FF)
+  Destination Clock: clk rising
+
+  Data Path: B<0> to sec_inst
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   1.218   0.595  B_0_IBUF (B_0_IBUF)
+     begin scope: 'dodawanie'
+     begin scope: 'blk00000001'
+     SEC:in->out           1   0.704   0.000  sec_inst (sec_net)
+     SEC:in->out           1   0.464   0.000  sec_inst (sec_net)
+     SEC:in->out           1   0.059   0.000  sec_inst (sec_net)
+     SEC:in->out           1   0.059   0.000  sec_inst (sec_net)
+     SEC:in->out           1   0.059   0.000  sec_inst (sec_net)
+     SEC:in->out           1   0.059   0.000  sec_inst (sec_net)
+     SEC:in->out           1   0.059   0.000  sec_inst (sec_net)
+     SEC:in->out           1   0.804   0.000  sec_inst (sec_net)
+     SEC:in                    0.421          sec_inst
+    ----------------------------------------
+    Total                      4.501ns (3.906ns logic, 0.595ns route)
+                                       (86.8% logic, 13.2% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+  Total number of paths / destination ports: 14 / 14
+-------------------------------------------------------------------------
+Offset:              4.283ns (Levels of Logic = 2)
+  Source:            sec_inst (FF)
+  Destination:       O<13> (PAD)
+  Source Clock:      clk rising
+
+  Data Path: sec_inst to O<13>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     SEC:C->out            1   0.591   0.420  sec_inst (sec_net)
+     end scope: 'blk00000001'
+     end scope: 'your_instance_name'
+     OBUF:I->O                 3.272          O_13_OBUF (O<13>)
+    ----------------------------------------
+    Total                      4.283ns (3.863ns logic, 0.420ns route)
+                                       (90.2% logic, 9.8% route)
+
+=========================================================================
+WARNING:Xst:616 - Invalid property "SYN_BLACK_BOX 1": Did not attach to dodawanie.
+WARNING:Xst:616 - Invalid property "SYN_NOPRUNE 1": Did not attach to dodawanie.
+WARNING:Xst:616 - Invalid property "SYN_BLACK_BOX 1": Did not attach to your_instance_name.
+WARNING:Xst:616 - Invalid property "SYN_NOPRUNE 1": Did not attach to your_instance_name.
+
+
+Total REAL time to Xst completion: 4.00 secs
+Total CPU time to Xst completion: 4.08 secs
+ 
+--> 
+
+
+Total memory usage is 167332 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :    7 (   0 filtered)
+Number of infos    :    0 (   0 filtered)
+

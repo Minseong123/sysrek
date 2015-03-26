@@ -1,0 +1,15 @@
+# Output products list for <apB>
+_xmsgs/pn_parser.xmsgs
+apB/doc/c_addsub_v11_0_readme.txt
+apB/doc/c_addsub_v11_0_vinfo.html
+apB/doc/ds214_addsub.pdf
+apB.asy
+apB.gise
+apB.ngc
+apB.sym
+apB.v
+apB.veo
+apB.xco
+apB.xise
+apB_flist.txt
+apB_xmdf.tcl

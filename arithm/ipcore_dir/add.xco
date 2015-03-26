@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Mar 24 18:25:59 2015
+# Date: Thu Mar 26 17:34:26 2015
 #
 ##############################################################
 #
@@ -58,7 +58,7 @@ CSET component_name=add
 CSET implementation=Fabric
 CSET latency=2
 CSET latency_configuration=Automatic
-CSET out_width=14
+CSET out_width=15
 CSET sclr=false
 CSET sinit=false
 CSET sinit_value=0
@@ -70,4 +70,4 @@ CSET sync_ctrl_priority=Reset_Overrides_Set
 MISC pkg_timestamp=2013-07-22T10:35:41Z
 # END Extra information
 GENERATE
-# CRC: 4817b8f6
+# CRC: f986b70d

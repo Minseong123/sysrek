@@ -52,9 +52,9 @@
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 mul your_instance_name (
   .clk(clk), // input clk
-  .a(a), // input [13 : 0] a
+  .a(a), // input [14 : 0] a
   .b(b), // input [13 : 0] b
-  .p(p) // output [27 : 0] p
+  .p(p) // output [28 : 0] p
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

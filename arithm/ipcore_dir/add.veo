@@ -60,7 +60,7 @@ add your_instance_name (
   .b(b), // input [13 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce
-  .s(s) // output [13 : 0] s
+  .s(s) // output [14 : 0] s
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

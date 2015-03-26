@@ -6,6 +6,7 @@ add/doc/ds214_addsub.pdf
 add.asy
 add.gise
 add.ngc
+add.sym
 add.v
 add.veo
 add.xco

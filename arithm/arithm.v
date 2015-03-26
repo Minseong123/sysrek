@@ -25,12 +25,12 @@ module arithm(
     input [13:0] B,
     input [13:0] C,
 	 
-	 output [13:0] O
+	 output [28:0] O
     );
 
-wire signed [13:0] a_plus_b;
+wire signed [14:0] a_plus_b;
 wire signed [13:0] opoz_c;
-wire signed [27:0] wynik;
+wire signed [28:0] wynik;
 
 //latency = 2
 add dodawanie (
@@ -38,7 +38,7 @@ add dodawanie (
   .b(B), // input [13 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce
-  .s(a_plus_b) // output [13 : 0] s
+  .s(a_plus_b) // output [14 : 0] s
 );
 
 delay # (
@@ -53,12 +53,12 @@ delay # (
  );
  
  //latency = 3
- mul your_instance_name (
+ mul mnozenie (
   .clk(clk), // input clk
   .a(a_plus_b), // input [13 : 0] a
   .b(opoz_c), // input [13 : 0] b
-  .p(wynik) // output [27 : 0] p
+  .p(wynik) // output [28 : 0] p
  );
  
- assign O = wynik[27:14];
+ assign O = wynik;//powinno byc 11111101111001101101011110000
 endmodule

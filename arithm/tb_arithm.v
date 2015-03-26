@@ -32,7 +32,7 @@ module tb_arithm;
 	reg [13:0] C;
 
 	// Outputs
-	wire signed [13:0] O;
+	wire signed [28:0] O;
 
 	// Instantiate the Unit Under Test (UUT)
 	arithm uut (
@@ -48,9 +48,9 @@ module tb_arithm;
 		// Initialize Inputs
 		clk = 0;
 		ce = 0;
-		A = 14'b00000111110100;
-		B = 14'b00110110000101;
-		C = 14'b00101011011001;
+		A = 14'b00010100101101; //0.32345
+		B = 14'b11001101100111; //-0.78743
+		C = 14'b00100100001100; //0.56532
 
 		// Wait 100 ns for global reset to finish
 		#100;

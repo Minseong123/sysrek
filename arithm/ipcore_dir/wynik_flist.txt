@@ -1,0 +1,15 @@
+# Output products list for <wynik>
+_xmsgs/pn_parser.xmsgs
+wynik/doc/c_addsub_v11_0_readme.txt
+wynik/doc/c_addsub_v11_0_vinfo.html
+wynik/doc/ds214_addsub.pdf
+wynik.asy
+wynik.gise
+wynik.ngc
+wynik.sym
+wynik.v
+wynik.veo
+wynik.xco
+wynik.xise
+wynik_flist.txt
+wynik_xmdf.tcl

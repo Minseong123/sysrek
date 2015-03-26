@@ -53,8 +53,9 @@
 ApBrC your_instance_name (
   .clk(clk), // input clk
   .a(a), // input [18 : 0] a
-  .b(b), // input [11 : 0] b
-  .p(p) // output [30 : 0] p
+  .b(b), // input [18 : 0] b
+  .ce(ce), // input ce
+  .p(p) // output [37 : 0] p
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

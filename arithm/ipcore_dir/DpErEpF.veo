@@ -52,9 +52,10 @@
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 DpErEpF your_instance_name (
   .clk(clk), // input clk
-  .a(a), // input [14 : 0] a
+  .a(a), // input [19 : 0] a
   .b(b), // input [19 : 0] b
-  .p(p) // output [34 : 0] p
+  .ce(ce), // input ce
+  .p(p) // output [39 : 0] p
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Thu Mar 26 18:07:09 2015
+# Date: Thu Mar 26 19:56:13 2015
 #
 ##############################################################
 #
@@ -40,7 +40,7 @@ SELECT Adder_Subtracter xilinx.com:ip:c_addsub:11.0
 # END Select
 # BEGIN Parameters
 CSET a_type=Signed
-CSET a_width=14
+CSET a_width=19
 CSET add_mode=Add
 CSET ainit_value=0
 CSET b_constant=false
@@ -70,4 +70,4 @@ CSET sync_ctrl_priority=Reset_Overrides_Set
 MISC pkg_timestamp=2013-07-22T10:35:41Z
 # END Extra information
 GENERATE
-# CRC: 49cf8220
+# CRC: 7d2f386a

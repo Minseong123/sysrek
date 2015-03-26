@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Thu Mar 26 18:12:41 2015
+# Date: Thu Mar 26 20:12:36 2015
 #
 ##############################################################
 #
@@ -40,18 +40,18 @@ SELECT Multiplier xilinx.com:ip:mult_gen:11.2
 # END Select
 # BEGIN Parameters
 CSET ccmimp=Distributed_Memory
-CSET clockenable=false
+CSET clockenable=true
 CSET component_name=DpErEpF
 CSET constvalue=129
 CSET internaluser=0
 CSET multiplier_construction=Use_Mults
 CSET multtype=Parallel_Multiplier
 CSET optgoal=Speed
-CSET outputwidthhigh=34
+CSET outputwidthhigh=39
 CSET outputwidthlow=0
-CSET pipestages=4
+CSET pipestages=5
 CSET portatype=Signed
-CSET portawidth=15
+CSET portawidth=20
 CSET portbtype=Signed
 CSET portbwidth=20
 CSET roundpoint=0
@@ -65,4 +65,4 @@ CSET zerodetect=false
 MISC pkg_timestamp=2013-07-22T11:36:26Z
 # END Extra information
 GENERATE
-# CRC: ab1305cb
+# CRC: 9a4a365a

@@ -57,7 +57,7 @@
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 apB your_instance_name (
   .a(a), // input [17 : 0] a
-  .b(b), // input [7 : 0] b
+  .b(b), // input [17 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce
   .s(s) // output [18 : 0] s

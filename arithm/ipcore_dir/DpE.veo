@@ -56,7 +56,7 @@
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 DpE your_instance_name (
-  .a(a), // input [7 : 0] a
+  .a(a), // input [13 : 0] a
   .b(b), // input [13 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce

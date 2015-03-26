@@ -56,7 +56,7 @@
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 EpF your_instance_name (
-  .a(a), // input [13 : 0] a
+  .a(a), // input [18 : 0] a
   .b(b), // input [18 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce

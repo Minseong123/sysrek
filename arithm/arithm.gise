@@ -21,10 +21,12 @@
 
   <sourceproject xmlns="http://www.xilinx.com/XMLSchema" xil_pn:fileType="FILE_XISE" xil_pn:name="arithm.xise"/>
 
-  <files xmlns="http://www.xilinx.com/XMLSchema"/>
+  <files xmlns="http://www.xilinx.com/XMLSchema">
+    <file xil_pn:fileType="FILE_NCD" xil_pn:name="arithm2_guide.ncd" xil_pn:origination="imported"/>
+  </files>
 
   <transforms xmlns="http://www.xilinx.com/XMLSchema">
-    <transform xil_pn:end_ts="1427393015" xil_pn:in_ck="-7445143018054645027" xil_pn:name="TRAN_SubProjectAbstractToPreProxy" xil_pn:start_ts="1427393015">
+    <transform xil_pn:end_ts="1427402080" xil_pn:in_ck="3627061888017108538" xil_pn:name="TRAN_SubProjectAbstractToPreProxy" xil_pn:start_ts="1427402080">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>

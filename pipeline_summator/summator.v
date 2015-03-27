@@ -18,6 +18,14 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+
+/*
+acc wymaga 21 bitow do poprawnego dzialania.
+Zakres liczby 13 bitowej typu z8c4u to  -256.0000  255.9375 (matlab)
+A wic w najgorszym przypadku (256 * min/max) = (-65536       65520)
+potrzebne jest 21 bitow do reprezentacji. Zakres to wtedy -65536    65536.
+Wymagana latencja - 0
+*/
 module summator(
     input [12:0] A,
     input clk,

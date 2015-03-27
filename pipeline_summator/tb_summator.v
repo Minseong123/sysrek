@@ -33,8 +33,9 @@ module tb_summator;
 	// Outputs
 	wire [20:0] Y;
 	
-	reg [10:0] i;
-
+	reg [20:0] acc;
+	
+	reg [8:0] i;
 	// Instantiate the Unit Under Test (UUT)
 	summator uut (
 		.A(A), 
@@ -43,13 +44,14 @@ module tb_summator;
 		.rst(rst), 
 		.Y(Y)
 	);
-
+	
 	initial begin
 		// Initialize Inputs
-		A = 12'b000000000001;
+		A = 13'b0000000000000;
 		clk = 0;
-		ce = 1;
+		ce = 0;
 		rst = 0;
+		acc = 0;
 		i = 0;
 
 		// Wait 100 ns for global reset to finish
@@ -60,18 +62,87 @@ module tb_summator;
 	end
 	always
 	begin
-		
-		while(i < 128) begin
-			#1 clk = ~clk;
-			i = i + 1;
+		if(ce == 0) //pierwsze okrazenie
+		begin
+			while(i < 100)
+			begin
+				i = i + 1;
+				#1 clk = ~clk;
+			end
+			ce = 1;
 		end
-		i = 0;
-		ce = ~ce;
+
 		rst = 1;
+		acc = 0;
+		A = 0;
+		
 		#1 clk = ~clk;
 		#1 clk = ~clk;
+		
 		rst = 0;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b0000000001101;
+		acc = 21'b000000000000000001101;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b1111111111001;
+		acc = 21'b000000000000000000110;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b1111111111001;
+		acc = 21'b111111111111111111111;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b0000000000011;
+		acc = 21'b000000000000000000010;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b1111111111111;
+		acc = 21'b000000000000000000001;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b1111111111100;
+		acc = 21'b111111111111111111101;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b0000000000101;
+		acc = 21'b000000000000000000010;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b0000000001110;
+		acc = 21'b000000000000000010000;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b0000000000100;
+		acc = 21'b000000000000000010100;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
+		
+		A = 13'b1111111111001;
+		acc = 21'b000000000000000001101;
+		
+		#1 clk = ~clk;
+		#1 clk = ~clk;
 	end
-      
 endmodule
 

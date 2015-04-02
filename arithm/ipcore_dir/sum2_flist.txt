@@ -1,0 +1,15 @@
+# Output products list for <sum2>
+_xmsgs/pn_parser.xmsgs
+sum2/doc/c_addsub_v11_0_readme.txt
+sum2/doc/c_addsub_v11_0_vinfo.html
+sum2/doc/ds214_addsub.pdf
+sum2.asy
+sum2.gise
+sum2.ngc
+sum2.sym
+sum2.v
+sum2.veo
+sum2.xco
+sum2.xise
+sum2_flist.txt
+sum2_xmdf.tcl

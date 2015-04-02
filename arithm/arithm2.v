@@ -27,99 +27,93 @@ module arithm2(
     input [7:0] D,
     input [13:0] E,
     input [18:0] F,
-    output [40:0] Y
+    output [36:0] Y
     );
 
-wire signed [17:0] n_B;
+wire signed [12:0] n_B;
 
 wire signed [18:0] ApB;
-wire signed [18:0] n_C;
-wire signed [18:0] opozC;
+wire signed [11:0] opozC;
 
-wire signed [13:0] n_D;
+wire signed [10:0] n_D;
 wire signed [14:0] DpE;
 
-wire signed [18:0] n_E;
+wire signed [17:0] n_E;
 wire signed [19:0] EpF;
 
+wire signed [30:0] ApBrC;
 
-wire signed [37:0] ApBrC;
+wire signed [34:0] DpErEpF;
 
-wire signed [19:0] n_DpE;
-wire signed [39:0] DpErEpF;
+wire signed [35:0] n_DpErEpF;
 
-wire signed [39:0] n_ApBrC;
+assign n_B = {B, {5{1'b0}}};
+assign n_D = {D, {3{1'b0}}};
+assign n_E = {E, {4{1'b0}}};
+assign n_DpErEpF = {DpErEpF, 1'b0};
 
-assign n_B = {{B[7]}, {5{B[7]}}, {B[6:0]}, {5{1'b0}}};
-assign n_C = {{C[11]}, {6{C[11]}}, {C[10:0]}, {1'b0}};
-assign n_D = {{D[7]}, {3{D[7]}}, {D[6:0]}, {3{1'b0}}};
-assign n_E = {{E[13]}, {E[13]}, {E[12:0]}, {4{1'b0}}};
-assign n_DpE = {{DpE[14]}, {DpE[14]}, {DpE[13:0]}, {4{1'b0}}};
-assign n_ApBrC = {{ApBrC[37]}, {ApBrC[36:0]}, {2{1'b0}}};
-//lat = 2
-apB A_plus_B (
+//latency = 2
+sum1 AplusB (
   .a(A), // input [17 : 0] a
-  .b(n_B), // input [17 : 0] b
+  .b(n_B), // input [12 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce
-  .s(ApB) // output [18 : 0] s
+  .s(ApB) // output [18 : 0] s z10c8u
 );
 
-//lat = 2
-DpE D_plus_E (
-  .a(n_D), // input [13 : 0] a
+//latency = 2
+sum2 DplusE (
+  .a(n_D), // input [10 : 0] a
   .b(E), // input [13 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce
-  .s(DpE) // output [14 : 0] s
+  .s(DpE) // output [14 : 0] s z9c5u
 );
 
-//lat = 2
-EpF E_plus_F (
-  .a(n_E), // input [18 : 0] a
+//latency = 2
+sum3 EplusF (
+  .a(n_E), // input [17 : 0] a
   .b(F), // input [18 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce
-  .s(EpF) // output [19 : 0] s
+  .s(EpF) // output [19 : 0] s z10c9u
 );
 
-delay #(
-	.N(19),
+delay #
+(
+	.N(12),
 	.DELAY(2)
 )
-delay_C
+delayC
 (
-	.d(n_C),
-	.q(opozC),
 	.clk(clk),
-	.ce(ce)
-	
+	.ce(ce),
+	.d(C),
+	.q(opozC)
 );
 
-//lat = 5
-ApBrC A_plus_B_mul_C (
+//latency = 4
+mul1 AplusBmulC (
   .clk(clk), // input clk
   .a(ApB), // input [18 : 0] a
-  .b(opozC), // input [18 : 0] b
-  .ce(ce), // input ce
-  .p(ApBrC) // output [37 : 0] p
+  .b(opozC), // input [11 : 0] b
+  .p(ApBrC) // output [30 : 0] p z15c15u
 );
 
-//lat =5
-DpErEpF D_plus_E_mul_E_plus_F (
+//latency = 4
+mul2 DplusEmulEplusF (
   .clk(clk), // input clk
-  .a(n_DpE), // input [19 : 0] a
+  .a(DpE), // input [14 : 0] a
   .b(EpF), // input [19 : 0] b
-  .ce(ce), // input ce
-  .p(DpErEpF) // output [39 : 0] p
+  .p(DpErEpF) // output [34 : 0] p z20c14u
 );
 
-//lat = 5
-final_sum last_sum (
-  .a(n_ApBrC), // input [39 : 0] a
-  .b(DpErEpF), // input [39 : 0] b
+//latency = 4
+sum4 outputY (
+  .a(ApBrC), // input [30 : 0] a
+  .b(n_DpErEpF), // input [35 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce
-  .s(Y) // output [40 : 0] s
+  .s(Y) // output [36 : 0] s
 );
 endmodule

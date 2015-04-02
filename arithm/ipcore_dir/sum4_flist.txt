@@ -1,0 +1,15 @@
+# Output products list for <sum4>
+_xmsgs/pn_parser.xmsgs
+sum4/doc/c_addsub_v11_0_readme.txt
+sum4/doc/c_addsub_v11_0_vinfo.html
+sum4/doc/ds214_addsub.pdf
+sum4.asy
+sum4.gise
+sum4.ngc
+sum4.sym
+sum4.v
+sum4.veo
+sum4.xco
+sum4.xise
+sum4_flist.txt
+sum4_xmdf.tcl

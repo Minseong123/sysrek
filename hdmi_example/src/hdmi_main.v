@@ -201,22 +201,22 @@ module hdmi_main
   // IMAGE PROCESSING  
   // -----------------------------------------------------------------------------  
  
- wire [7:0] lub_blue;
+ wire [7:0] lut_blue;
  wire [7:0] lut_red;
  wire [7:0] lut_green;
- LUT lut_r (
+BINARYZACJA lut_r (
   .a(rx_red), // input [7 : 0] a
   .clk(rx_pclk), // input clk
   .qspo(lut_red) // output [7 : 0] qspo
 );
 
-LUT lut_g (
+BINARYZACJA lut_g (
   .a(rx_green), // input [7 : 0] a
   .clk(rx_pclk), // input clk
   .qspo(lut_green) // output [7 : 0] qspo
 );
 
-LUT lut_b (
+BINARYZACJA lut_b (
   .a(rx_blue), // input [7 : 0] a
   .clk(rx_pclk), // input clk
   .qspo(lut_blue) // output [7 : 0] qspo
@@ -265,9 +265,9 @@ end
 	assign tx_de 				= lut_de;
 	assign tx_hsync 			= lut_hsync;
 	assign tx_vsync 			= lut_vsync;
-	assign tx_blue         	= lut_blue;
-	assign tx_green        	= lut_green;
-	assign tx_red          	= lut_red;
+	assign tx_blue         	= lut_blue & lut_green & lut_red;
+	assign tx_green        	= lut_blue & lut_green & lut_red;
+	assign tx_red          	= lut_blue & lut_green & lut_red;
   
   //////////////////////////////////////////////////////////////////
   // Instantiate a dedicate PLL for output port

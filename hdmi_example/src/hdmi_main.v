@@ -48,7 +48,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 `timescale 1 ns / 1 ps
-//`define SPLITTER
+`define SPLITTER
 
 module hdmi_main
  (
@@ -201,16 +201,38 @@ module hdmi_main
   // IMAGE PROCESSING  
   // -----------------------------------------------------------------------------  
  
+ wire [7:0] lub_blue;
+ wire [7:0] lut_red;
+ wire [7:0] lut_green;
+ LUT lut_r (
+  .a(rx_red), // input [7 : 0] a
+  .clk(rx_pclk), // input clk
+  .qspo(lut_red) // output [7 : 0] qspo
+);
+
+LUT lut_g (
+  .a(rx_green), // input [7 : 0] a
+  .clk(rx_pclk), // input clk
+  .qspo(lut_green) // output [7 : 0] qspo
+);
+
+LUT lut_b (
+  .a(rx_blue), // input [7 : 0] a
+  .clk(rx_pclk), // input clk
+  .qspo(lut_blue) // output [7 : 0] qspo
+);
  
  
- 
- 
- 
- 
- 
- 
- 
- 
+reg lut_de = 0;
+reg lut_hsync = 0;
+reg lut_vsync = 0;
+always @(posedge rx_pclk)
+begin
+	lut_de <= rx_de;
+	lut_hsync <= rx_hsync;
+	lut_vsync <= rx_vsync;
+end
+
   // -----------------------------------------------------------------------------
   // HDMI output port 
   // -----------------------------------------------------------------------------  
@@ -232,14 +254,21 @@ module hdmi_main
   // HDMI output port signal assigments 
   // -----------------------------------------------------------------------------  
   
-  assign tx_de           = rx_de;
-  assign tx_blue         = rx_blue;
-  assign tx_green        = rx_green;
-  assign tx_red          = rx_red;
-  assign tx_hsync        = rx_hsync;
-  assign tx_vsync        = rx_vsync;
+//  assign tx_de           = rx_de;
+//  assign tx_blue         = rx_blue;
+//  assign tx_green        = rx_green;
+//  assign tx_red          = rx_red;
+//  assign tx_hsync        = rx_hsync;
+//  assign tx_vsync        = rx_vsync;
   assign tx_pll_reset    = rx_reset;
-
+  
+	assign tx_de 				= lut_de;
+	assign tx_hsync 			= lut_hsync;
+	assign tx_vsync 			= lut_vsync;
+	assign tx_blue         	= lut_blue;
+	assign tx_green        	= lut_green;
+	assign tx_red          	= lut_red;
+  
   //////////////////////////////////////////////////////////////////
   // Instantiate a dedicate PLL for output port
   //////////////////////////////////////////////////////////////////

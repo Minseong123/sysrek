@@ -56,7 +56,7 @@ hdmi_in file_input (
     .hdmi_b(rx_blue)
     );
 	 
- wire [7:0] lub_blue;
+ wire [7:0] lut_blue;
  wire [7:0] lut_red;
  wire [7:0] lut_green;
 BINARYZACJA lut_r (

@@ -1,0 +1,14 @@
+# Output products list for <multiply>
+multiply/doc/mult_gen_ds255.pdf
+multiply/doc/mult_gen_v11_2_readme.txt
+multiply/doc/mult_gen_v11_2_vinfo.html
+multiply.asy
+multiply.gise
+multiply.ngc
+multiply.sym
+multiply.v
+multiply.veo
+multiply.xco
+multiply.xise
+multiply_flist.txt
+multiply_xmdf.tcl

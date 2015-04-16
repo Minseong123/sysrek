@@ -1,6 +1,6 @@
 %% zadanie 10.2
 
-%% załaduj plik graficzny
+%% za??aduj plik graficzny
 im = imread('taylor64.ppm');
 %imshow(im)
 
@@ -26,9 +26,9 @@ constCoef = [   0;
  matrixCoefFI = fi(matrixCoef, signed, wordLength, fractionLength,...
      'RoundingMethod', 'floor');
  
- constCoefFI = fi(constCoef, 1, 8, 0, 'RoundingMethod', 'floor');
+ constCoefFI = fi(constCoef, 1, 9, 0, 'RoundingMethod', 'floor');
  
- %% wykonaj konwersję na liczbach FI
+ %% wykonaj konwersj?? na liczbach FI
   
 imageYCbCrFI = reshape(imFI, [], 3) * matrixCoefFI;
 imageYCbCrFI(:, 1) = imageYCbCrFI(:, 1) + constCoefFI(1);
@@ -36,7 +36,7 @@ imageYCbCrFI(:, 2) = imageYCbCrFI(:, 2) + constCoefFI(2);
 imageYCbCrFI(:, 3) = imageYCbCrFI(:, 3) + constCoefFI(3);
 imageYCbCrFI = reshape(imageYCbCrFI, size(imFI));
 
-% robi to samo co poniższa pętla
+%% robi to samo co poni??sza p??tla
 
 % for i = 1:size(im, 1)
 %     for j = 1:size(im, 2)   
@@ -55,15 +55,14 @@ imageYCbCrFI = reshape(imageYCbCrFI, size(imFI));
 %     end
 % end
 
-%% pozbycie się części ułamkowej
-typ_wyniku = numerictype(1, 8, 0);
+%% pozbycie si?? cz????ci u??amkowej
+typ_wyniku = numerictype(1, 9, 0);
 
-wynikFI = fi(zeros(size(im)));
-for i = size(im, 1)
-    for j = size(im, 2)
-        for k = 1:3
+wynikFI = fi(zeros(size(im)), 1, 9, 0);
+for i = 1:size(imageYCbCrFI, 1)
+    for j = 1:size(imageYCbCrFI, 2)
+        for k = 1:size(imageYCbCrFI, 3)
             wynikFI(i, j, k) = quantize(imageYCbCrFI(i, j, k), typ_wyniku);
         end
     end
-end
-            
+end  

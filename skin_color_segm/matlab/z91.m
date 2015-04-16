@@ -3,7 +3,7 @@
 
 %% ladowanie obrazu
 close all, clear all, clc;
-imageRGB = imread('taylor.ppm');
+imageRGB = imread('taylor64.ppm');
 imshow(imageRGB)
 
 %% konwersja na YCbCr

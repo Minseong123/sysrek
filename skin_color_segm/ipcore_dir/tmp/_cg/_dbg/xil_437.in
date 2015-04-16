@@ -23,7 +23,27 @@ SET_PREFERENCE implementationfiletype Ngc
 SET_PREFERENCE foundationsym false
 SET_PREFERENCE createndf false
 SET_PREFERENCE removerpms false
-SET_PARAMETER Component_Name mult1
+SET_PARAMETER InternalUser 0
+SET_PARAMETER Component_Name multiply
+SET_PARAMETER MultType Parallel_Multiplier
+SET_PARAMETER PortAType Signed
+SET_PARAMETER PortAWidth 18
+SET_PARAMETER PortBType Signed
+SET_PARAMETER PortBWidth 9
+SET_PARAMETER ConstValue 129
+SET_PARAMETER CcmImp Distributed_Memory
+SET_PARAMETER Multiplier_Construction Use_Mults
+SET_PARAMETER OptGoal Speed
+SET_PARAMETER Use_Custom_Output_Width false
+SET_PARAMETER OutputWidthHigh 26
+SET_PARAMETER OutputWidthLow 0
+SET_PARAMETER UseRounding false
+SET_PARAMETER RoundPoint 0
+SET_PARAMETER PipeStages 2
+SET_PARAMETER ClockEnable false
+SET_PARAMETER SyncClear false
+SET_PARAMETER SclrCePriority SCLR_Overrides_CE
+SET_PARAMETER ZeroDetect false
 SET_CORE_NAME Multiplier
 SET_CORE_VERSION 11.2
 SET_CORE_VLNV xilinx.com:ip:mult_gen:11.2

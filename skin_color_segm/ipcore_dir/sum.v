@@ -7,17 +7,17 @@
 // \   \   \/     Version: P.20131013
 //  \   \         Application: netgen
 //  /   /         Filename: sum.v
-// /___/   /\     Timestamp: Thu Apr 16 19:09:33 2015
+// /___/   /\     Timestamp: Thu Apr 16 22:49:09 2015
 // \   \  /  \ 
 //  \___\/\___\
 //             
-// Command	: -w -sim -ofmt verilog "/home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/ipcore_dir/tmp/_cg/sum.ngc" "/home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/ipcore_dir/tmp/_cg/sum.v" 
+// Command	: -w -sim -ofmt verilog /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/ipcore_dir/tmp/_cg/sum.ngc /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/ipcore_dir/tmp/_cg/sum.v 
 // Device	: 6slx45csg324-2
-// Input file	: /home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/ipcore_dir/tmp/_cg/sum.ngc
-// Output file	: /home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/ipcore_dir/tmp/_cg/sum.v
+// Input file	: /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/ipcore_dir/tmp/_cg/sum.ngc
+// Output file	: /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/ipcore_dir/tmp/_cg/sum.v
 // # of Modules	: 1
 // Design Name	: sum
-// Xilinx        : /opt/Xilinx/14.7/ISE_DS/ISE/
+// Xilinx        : /mnt/data/Xilinx/14.7/ISE_DS/ISE/
 //             
 // Purpose:    
 //     This verilog netlist is a verification model and uses simulation 

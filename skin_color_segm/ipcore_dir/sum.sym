@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="sum">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2015-4-16T17:9:33</timestamp>
+    <timestamp>2015-4-16T20:49:9</timestamp>
     <pin polarity="Input" x="0" y="80" name="a[10:0]" />
     <pin polarity="Input" x="0" y="112" name="b[10:0]" />
     <pin polarity="Input" x="0" y="144" name="clk" />

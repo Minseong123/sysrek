@@ -201,6 +201,35 @@ module hdmi_main
   // IMAGE PROCESSING  
   // -----------------------------------------------------------------------------  
 
+wire [7:0] 	Y;
+wire [7:0] 	Cb;
+wire [7:0] 	Cr;
+wire			conv_hsync;
+wire			conv_vsync;
+wire			conv_de;
+
+rgb2ycbcr conversion
+(
+	.clk(clk),
+	.ce(1'b1),
+	
+	.R(rx_red),
+	.G(rx_green),
+	.B(rx_blue),
+	
+	.in_hsync(rx_hsync),
+	.in_vsync(rx_vsync),
+	.in_de(rx_de),
+	
+	.Y(Y),
+	.Cb(Cb),
+	.Cr(Cr),
+	
+	.out_hsync(conv_hsync),
+	.out_vsync(conv_vsync),
+	.out_de(conv_de)
+);
+
   // -----------------------------------------------------------------------------
   // HDMI output port 
   // -----------------------------------------------------------------------------  
@@ -222,13 +251,21 @@ module hdmi_main
   // HDMI output port signal assigments 
   // -----------------------------------------------------------------------------  
   
-  assign tx_de           = rx_de;
-  assign tx_blue         = rx_blue;
-  assign tx_green        = rx_green;
-  assign tx_red          = rx_red;
-  assign tx_hsync        = rx_hsync;
-  assign tx_vsync        = rx_vsync;
+//  assign tx_de           = rx_de;
+//  assign tx_blue         = rx_blue;
+//  assign tx_green        = rx_green;
+//  assign tx_red          = rx_red;
+//  assign tx_hsync        = rx_hsync;
+//  assign tx_vsync        = rx_vsync;
   assign tx_pll_reset    = rx_reset;
+  
+// moje zmiany
+  assign tx_de           = conv_de;
+  assign tx_blue         = Y;
+  assign tx_green        = Cb;
+  assign tx_red          = Cr;
+  assign tx_hsync        = conv_hsync;
+  assign tx_vsync        = conv_vsync;  
   
   //////////////////////////////////////////////////////////////////
   // Instantiate a dedicate PLL for output port

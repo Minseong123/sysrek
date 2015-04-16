@@ -55,18 +55,49 @@ hdmi_in file_input (
     .hdmi_g(rx_green), 
     .hdmi_b(rx_blue)
     );
+
+// proccessing 
+
+wire [7:0] 	Y;
+wire [7:0] 	Cb;
+wire [7:0] 	Cr;
+wire			conv_hsync;
+wire			conv_vsync;
+wire			conv_de;
+
+rgb2ycbcr conversion
+(
+	.clk(rx_pclk),
+	.ce(1'b1),
+	
+	.R(rx_red),
+	.G(rx_green),
+	.B(rx_blue),
+	
+	.in_hsync(rx_hsync),
+	.in_vsync(rx_vsync),
+	.in_de(rx_de),
+	
+	.Y(Y),
+	.Cb(Cb),
+	.Cr(Cr),
+	
+	.out_hsync(conv_hsync),
+	.out_vsync(conv_vsync),
+	.out_de(conv_de)
+);
 	
 	 
 // --------------------------------------
 // Output assigment
 // --------------------------------------
   
-	assign tx_de 				= rx_de;
-	assign tx_hsync 			= rx_hsync;
-	assign tx_vsync 			= rx_vsync;
-	assign tx_blue         	= rx_blue;
-	assign tx_green        	= rx_green;
-	assign tx_red          	= rx_red;
+	assign tx_de 				= conv_de;
+	assign tx_hsync 			= conv_hsync;
+	assign tx_vsync 			= conv_vsync;
+	assign tx_blue         	= Y;
+	assign tx_green        	= Cb;
+	assign tx_red          	= Cr;
 
 // --------------------------------------
 // HDMI output
@@ -78,5 +109,7 @@ hdmi_out file_output (
     .hdmi_data({8'b0,tx_red,tx_green,tx_blue})
     );
 
-
+initial begin
+	#100;
+	end;
 endmodule

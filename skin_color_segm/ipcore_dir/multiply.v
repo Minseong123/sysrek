@@ -7,17 +7,17 @@
 // \   \   \/     Version: P.20131013
 //  \   \         Application: netgen
 //  /   /         Filename: multiply.v
-// /___/   /\     Timestamp: Thu Apr 16 18:41:58 2015
+// /___/   /\     Timestamp: Sat Apr 18 15:01:30 2015
 // \   \  /  \ 
 //  \___\/\___\
 //             
-// Command	: -w -sim -ofmt verilog "/home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/ipcore_dir/tmp/_cg/multiply.ngc" "/home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/ipcore_dir/tmp/_cg/multiply.v" 
+// Command	: -w -sim -ofmt verilog /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/ipcore_dir/tmp/_cg/multiply.ngc /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/ipcore_dir/tmp/_cg/multiply.v 
 // Device	: 6slx45csg324-2
-// Input file	: /home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/ipcore_dir/tmp/_cg/multiply.ngc
-// Output file	: /home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/ipcore_dir/tmp/_cg/multiply.v
+// Input file	: /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/ipcore_dir/tmp/_cg/multiply.ngc
+// Output file	: /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/ipcore_dir/tmp/_cg/multiply.v
 // # of Modules	: 1
 // Design Name	: multiply
-// Xilinx        : /opt/Xilinx/14.7/ISE_DS/ISE/
+// Xilinx        : /mnt/data/Xilinx/14.7/ISE_DS/ISE/
 //             
 // Purpose:    
 //     This verilog netlist is a verification model and uses simulation 
@@ -38,13 +38,13 @@ module multiply (
 )/* synthesis syn_black_box syn_noprune=1 */;
   input clk;
   input [17 : 0] a;
-  input [8 : 0] b;
-  output [26 : 0] p;
+  input [17 : 0] b;
+  output [35 : 0] p;
   
   // synthesis translate_off
   
-  wire \blk00000001/sig00000039 ;
-  wire \blk00000001/sig00000038 ;
+  wire \blk00000001/sig0000004b ;
+  wire \blk00000001/sig0000004a ;
   wire \NLW_blk00000001/blk00000004_CARRYOUTF_UNCONNECTED ;
   wire \NLW_blk00000001/blk00000004_CARRYOUT_UNCONNECTED ;
   wire \NLW_blk00000001/blk00000004_BCOUT<17>_UNCONNECTED ;
@@ -209,15 +209,6 @@ module multiply (
   wire \NLW_blk00000001/blk00000004_PCOUT<2>_UNCONNECTED ;
   wire \NLW_blk00000001/blk00000004_PCOUT<1>_UNCONNECTED ;
   wire \NLW_blk00000001/blk00000004_PCOUT<0>_UNCONNECTED ;
-  wire \NLW_blk00000001/blk00000004_M<35>_UNCONNECTED ;
-  wire \NLW_blk00000001/blk00000004_M<34>_UNCONNECTED ;
-  wire \NLW_blk00000001/blk00000004_M<33>_UNCONNECTED ;
-  wire \NLW_blk00000001/blk00000004_M<32>_UNCONNECTED ;
-  wire \NLW_blk00000001/blk00000004_M<31>_UNCONNECTED ;
-  wire \NLW_blk00000001/blk00000004_M<30>_UNCONNECTED ;
-  wire \NLW_blk00000001/blk00000004_M<29>_UNCONNECTED ;
-  wire \NLW_blk00000001/blk00000004_M<28>_UNCONNECTED ;
-  wire \NLW_blk00000001/blk00000004_M<27>_UNCONNECTED ;
   DSP48A1 #(
     .CARRYINSEL ( "OPMODE5" ),
     .A0REG ( 0 ),
@@ -233,26 +224,26 @@ module multiply (
     .RSTTYPE ( "SYNC" ),
     .DREG ( 0 ))
   \blk00000001/blk00000004  (
-    .CECARRYIN(\blk00000001/sig00000039 ),
-    .RSTC(\blk00000001/sig00000039 ),
-    .RSTCARRYIN(\blk00000001/sig00000039 ),
-    .CED(\blk00000001/sig00000039 ),
-    .RSTD(\blk00000001/sig00000039 ),
-    .CEOPMODE(\blk00000001/sig00000039 ),
-    .CEC(\blk00000001/sig00000039 ),
+    .CECARRYIN(\blk00000001/sig0000004b ),
+    .RSTC(\blk00000001/sig0000004b ),
+    .RSTCARRYIN(\blk00000001/sig0000004b ),
+    .CED(\blk00000001/sig0000004b ),
+    .RSTD(\blk00000001/sig0000004b ),
+    .CEOPMODE(\blk00000001/sig0000004b ),
+    .CEC(\blk00000001/sig0000004b ),
     .CARRYOUTF(\NLW_blk00000001/blk00000004_CARRYOUTF_UNCONNECTED ),
-    .RSTOPMODE(\blk00000001/sig00000039 ),
-    .RSTM(\blk00000001/sig00000039 ),
+    .RSTOPMODE(\blk00000001/sig0000004b ),
+    .RSTM(\blk00000001/sig0000004b ),
     .CLK(clk),
-    .RSTB(\blk00000001/sig00000039 ),
-    .CEM(\blk00000001/sig00000038 ),
-    .CEB(\blk00000001/sig00000038 ),
-    .CARRYIN(\blk00000001/sig00000039 ),
-    .CEP(\blk00000001/sig00000039 ),
-    .CEA(\blk00000001/sig00000038 ),
+    .RSTB(\blk00000001/sig0000004b ),
+    .CEM(\blk00000001/sig0000004a ),
+    .CEB(\blk00000001/sig0000004a ),
+    .CARRYIN(\blk00000001/sig0000004b ),
+    .CEP(\blk00000001/sig0000004b ),
+    .CEA(\blk00000001/sig0000004a ),
     .CARRYOUT(\NLW_blk00000001/blk00000004_CARRYOUT_UNCONNECTED ),
-    .RSTA(\blk00000001/sig00000039 ),
-    .RSTP(\blk00000001/sig00000039 ),
+    .RSTA(\blk00000001/sig0000004b ),
+    .RSTP(\blk00000001/sig0000004b ),
     .B({a[17], a[16], a[15], a[14], a[13], a[12], a[11], a[10], a[9], a[8], a[7], a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
     .BCOUT({\NLW_blk00000001/blk00000004_BCOUT<17>_UNCONNECTED , \NLW_blk00000001/blk00000004_BCOUT<16>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_BCOUT<15>_UNCONNECTED , \NLW_blk00000001/blk00000004_BCOUT<14>_UNCONNECTED , 
@@ -287,16 +278,16 @@ module multiply (
 \NLW_blk00000001/blk00000004_PCIN<5>_UNCONNECTED , \NLW_blk00000001/blk00000004_PCIN<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_PCIN<3>_UNCONNECTED , \NLW_blk00000001/blk00000004_PCIN<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_PCIN<1>_UNCONNECTED , \NLW_blk00000001/blk00000004_PCIN<0>_UNCONNECTED }),
-    .C({\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 }),
+    .C({\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b }),
     .P({\NLW_blk00000001/blk00000004_P<47>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<46>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_P<45>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<44>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<43>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_P<42>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<41>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<40>_UNCONNECTED , 
@@ -314,12 +305,12 @@ module multiply (
 \NLW_blk00000001/blk00000004_P<6>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<5>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_P<3>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<2>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<1>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_P<0>_UNCONNECTED }),
-    .OPMODE({\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000038 }),
-    .D({\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 , 
-\blk00000001/sig00000039 , \blk00000001/sig00000039 , \blk00000001/sig00000039 }),
+    .OPMODE({\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004a }),
+    .D({\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b , 
+\blk00000001/sig0000004b , \blk00000001/sig0000004b , \blk00000001/sig0000004b }),
     .PCOUT({\NLW_blk00000001/blk00000004_PCOUT<47>_UNCONNECTED , \NLW_blk00000001/blk00000004_PCOUT<46>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_PCOUT<45>_UNCONNECTED , \NLW_blk00000001/blk00000004_PCOUT<44>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_PCOUT<43>_UNCONNECTED , \NLW_blk00000001/blk00000004_PCOUT<42>_UNCONNECTED , 
@@ -344,18 +335,15 @@ module multiply (
 \NLW_blk00000001/blk00000004_PCOUT<5>_UNCONNECTED , \NLW_blk00000001/blk00000004_PCOUT<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_PCOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000004_PCOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_PCOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000004_PCOUT<0>_UNCONNECTED }),
-    .A({b[8], b[8], b[8], b[8], b[8], b[8], b[8], b[8], b[8], b[8], b[7], b[6], b[5], b[4], b[3], b[2], b[1], b[0]}),
-    .M({\NLW_blk00000001/blk00000004_M<35>_UNCONNECTED , \NLW_blk00000001/blk00000004_M<34>_UNCONNECTED , 
-\NLW_blk00000001/blk00000004_M<33>_UNCONNECTED , \NLW_blk00000001/blk00000004_M<32>_UNCONNECTED , \NLW_blk00000001/blk00000004_M<31>_UNCONNECTED , 
-\NLW_blk00000001/blk00000004_M<30>_UNCONNECTED , \NLW_blk00000001/blk00000004_M<29>_UNCONNECTED , \NLW_blk00000001/blk00000004_M<28>_UNCONNECTED , 
-\NLW_blk00000001/blk00000004_M<27>_UNCONNECTED , p[26], p[25], p[24], p[23], p[22], p[21], p[20], p[19], p[18], p[17], p[16], p[15], p[14], p[13], 
-p[12], p[11], p[10], p[9], p[8], p[7], p[6], p[5], p[4], p[3], p[2], p[1], p[0]})
+    .A({b[17], b[16], b[15], b[14], b[13], b[12], b[11], b[10], b[9], b[8], b[7], b[6], b[5], b[4], b[3], b[2], b[1], b[0]}),
+    .M({p[35], p[34], p[33], p[32], p[31], p[30], p[29], p[28], p[27], p[26], p[25], p[24], p[23], p[22], p[21], p[20], p[19], p[18], p[17], p[16], 
+p[15], p[14], p[13], p[12], p[11], p[10], p[9], p[8], p[7], p[6], p[5], p[4], p[3], p[2], p[1], p[0]})
   );
   GND   \blk00000001/blk00000003  (
-    .G(\blk00000001/sig00000039 )
+    .G(\blk00000001/sig0000004b )
   );
   VCC   \blk00000001/blk00000002  (
-    .P(\blk00000001/sig00000038 )
+    .P(\blk00000001/sig0000004a )
   );
 
 // synthesis translate_on

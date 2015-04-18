@@ -2,6 +2,8 @@
 
 %% zaladuj plik graficzny
 im = imread('taylor64.ppm');
+% im = zeros(1, 1, 3);
+% im(1, 1, :) = [243, 12, 45];
 % imshow(im)
 
 %% konwersja na FI

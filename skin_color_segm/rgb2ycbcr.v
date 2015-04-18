@@ -37,177 +37,181 @@ module rgb2ycbcr(
 	output out_de
 );
 	 
-reg [17:0] matrix_coef1_1 = 18'b001001100100010110;
-reg [17:0] matrix_coef1_2 = 18'b010010110010001011;
-reg [17:0] matrix_coef1_3 = 18'b000011101001011110;
-reg [17:0] matrix_coef2_1 = 18'b111010100110011011;
-reg [17:0] matrix_coef2_2 = 18'b110101011001100100;
-reg [17:0] matrix_coef2_3 = 18'b010000000000000000;
-reg [17:0] matrix_coef3_1 = 18'b010000000000000000;
-reg [17:0] matrix_coef3_2 = 18'b110010100110100001;
-reg [17:0] matrix_coef3_3 = 18'b111101011001011110;
+reg signed [17:0] matrix_coef1_1 = 18'b001001100100010110;
+reg signed [17:0] matrix_coef1_2 = 18'b010010110010001011;
+reg signed [17:0] matrix_coef1_3 = 18'b000011101001011110;
+reg signed [17:0] matrix_coef2_1 = 18'b111010100110011011;
+reg signed [17:0] matrix_coef2_2 = 18'b110101011001100100;
+reg signed [17:0] matrix_coef2_3 = 18'b010000000000000000;
+reg signed [17:0] matrix_coef3_1 = 18'b010000000000000000;
+reg signed [17:0] matrix_coef3_2 = 18'b110010100110100001;
+reg signed [17:0] matrix_coef3_3 = 18'b111101011001011110;
 
-reg [10:0] vector_coef1 = 11'b00000000000;
-reg [10:0] vector_coef2 = 11'b00010000000;
-reg [10:0] vector_coef3 = 11'b00010000000;
+reg signed [8:0] vector_coef1 = 9'b000000000;
+reg signed [8:0] vector_coef2 = 9'b010000000;
+reg signed [8:0] vector_coef3 = 9'b010000000;
 
-wire [26:0] mul1_1;
-wire [26:0] mul1_2;
-wire [26:0] mul1_3;
-wire [26:0] mul2_1;
-wire [26:0] mul2_2;
-wire [26:0] mul2_3;
-wire [26:0] mul3_1;
-wire [26:0] mul3_2;
-wire [26:0] mul3_3;
+wire signed [35:0] mul1_1;
+wire signed [35:0] mul1_2;
+wire signed [35:0] mul1_3;
+wire signed [35:0] mul2_1;
+wire signed [35:0] mul2_2;
+wire signed [35:0] mul2_3;
+wire signed [35:0] mul3_1;
+wire signed [35:0] mul3_2;
+wire signed [35:0] mul3_3;
 
-wire [10:0] sum1_1;
-wire [10:0] sum1_2;
-wire [10:0] sum1_3;
-wire [10:0] sum2_1;
-wire [10:0] sum2_2;
-wire [10:0] sum2_3;
-wire [10:0] sum3_1;
-wire [10:0] sum3_2;
-wire [10:0] sum3_3;
+wire signed [8:0] sum1_1;
+wire signed [8:0] sum1_2;
+wire signed [8:0] sum1_3;
+wire signed [8:0] sum2_1;
+wire signed [8:0] sum2_2;
+wire signed [8:0] sum2_3;
+wire signed [8:0] sum3_1;
+wire signed [8:0] sum3_2;
+wire signed [8:0] sum3_3;
 
-//konwersja na Y
-multiply AmR_1 (
+//Y
+multiply mult1_1 (
   .clk(clk), // input clk
   .a(matrix_coef1_1), // input [17 : 0] a
-  .b({1'b0, R}), // input [8 : 0] b
-  .p(mul1_1) // output [26 : 0] p
+  .b({10'b0, R}), // input [17 : 0] b
+  .p(mul1_1) // output [35 : 0] p
 );
 
-multiply BmG_1 (
+multiply mult1_2 (
   .clk(clk), // input clk
   .a(matrix_coef1_2), // input [17 : 0] a
-  .b({1'b0, G}), // input [8 : 0] b
-  .p(mul1_2) // output [26 : 0] p
+  .b({10'b0, G}), // input [17 : 0] b
+  .p(mul1_2) // output [35 : 0] p
 );
 
-multiply CmB_1 (
+multiply mult1_3 (
   .clk(clk), // input clk
   .a(matrix_coef1_3), // input [17 : 0] a
-  .b({1'b0, B}), // input [8 : 0] b
-  .p(mul1_3) // output [26 : 0] p
+  .b({10'b0, B}), // input [17 : 0] b
+  .p(mul1_3) // output [35 : 0] p
 );
 
-sum ApB_1 (
-  .a({1'b0, mul1_1[26:17]}), // input [10 : 0] a
-  .b({1'b0, mul1_2[26:17]}), // input [10 : 0] b
+sum summ1_1 (
+  .a(mul1_1[25:17]), // input [8 : 0] a
+  .b(mul1_2[25:17]), // input [8 : 0] b
   .clk(clk), // input clk
-  .ce(ce),
-  .s(sum1_1) // output [10 : 0] s
+  .ce(ce), // input ce
+  .s(sum1_1) // output [8 : 0] s
 );
 
-sum CpCONST_1 (
-  .a({1'b0, mul1_3[26:17]}), // input [10 : 0] a
-  .b(vector_coef1), // input [10 : 0] b
+sum summ1_2 (
+  .a(mul1_3[25:17]), // input [8 : 0] a
+  .b(vector_coef1), // input [8 : 0] b
   .clk(clk), // input clk
-  .ce(ce),
-  .s(sum1_2) // output [10 : 0] s
+  .ce(ce), // input ce
+  .s(sum1_2) // output [8 : 0] s
 );
 
-sum outY (
-  .a(sum1_1), // input [10 : 0] a
-  .b(sum1_2), // input [10 : 0] b
+
+sum summ1_3 (
+  .a(sum1_1), // input [8 : 0] a
+  .b(sum1_2), // input [8 : 0] b
   .clk(clk), // input clk
-  .ce(ce),
-  .s(sum1_3) // output [10 : 0] s
+  .ce(ce), // input ce
+  .s(sum1_3) // output [8 : 0] s
 );
 
-//konwersja na Cb
-multiply AmR_2 (
+// Cb
+multiply mult2_1 (
   .clk(clk), // input clk
   .a(matrix_coef2_1), // input [17 : 0] a
-  .b({1'b0, R}), // input [8 : 0] b
-  .p(mul2_1) // output [26 : 0] p
+  .b({10'b0, R}), // input [17 : 0] b
+  .p(mul2_1) // output [35 : 0] p
 );
 
-multiply BmG_2 (
+multiply mult2_2 (
   .clk(clk), // input clk
   .a(matrix_coef2_2), // input [17 : 0] a
-  .b({1'b0, G}), // input [8 : 0] b
-  .p(mul2_2) // output [26 : 0] p
+  .b({10'b0, G}), // input [17 : 0] b
+  .p(mul2_2) // output [35 : 0] p
 );
 
-multiply CmB_2 (
+multiply mult2_3 (
   .clk(clk), // input clk
   .a(matrix_coef2_3), // input [17 : 0] a
-  .b({1'b0, B}), // input [8 : 0] b
-  .p(mul2_3) // output [26 : 0] p
+  .b({10'b0, B}), // input [17 : 0] b
+  .p(mul2_3) // output [35 : 0] p
 );
 
-sum ApB_2 (
-  .a({1'b0, mul2_1[26:17]}), // input [10 : 0] a
-  .b({1'b0, mul2_2[26:17]}), // input [10 : 0] b
+sum summ2_1 (
+  .a(mul2_1[25:17]), // input [8 : 0] a
+  .b(mul2_2[25:17]), // input [8 : 0] b
   .clk(clk), // input clk
-  .ce(ce),
-  .s(sum2_1) // output [10 : 0] s
+  .ce(ce), // input ce
+  .s(sum2_1) // output [8 : 0] s
 );
 
-sum CpCONST_2 (
-  .a({1'b0, mul2_3[26:17]}), // input [10 : 0] a
-  .b(vector_coef2), // input [10 : 0] b
+sum summ2_2 (
+  .a(mul2_3[25:17]), // input [8 : 0] a
+  .b(vector_coef2), // input [8 : 0] b
   .clk(clk), // input clk
-  .ce(ce),
-  .s(sum2_2) // output [10 : 0] s
+  .ce(ce), // input ce
+  .s(sum2_2) // output [8 : 0] s
 );
 
-sum outCb (
-  .a(sum2_1), // input [10 : 0] a
-  .b(sum2_2), // input [10 : 0] b
+
+sum summ2_3 (
+  .a(sum2_1), // input [8 : 0] a
+  .b(sum2_2), // input [8 : 0] b
   .clk(clk), // input clk
-  .ce(ce),
-  .s(sum2_3) // output [10 : 0] s
+  .ce(ce), // input ce
+  .s(sum2_3) // output [8 : 0] s
 );
 
-//konwersja na Cr
-multiply AmR_3 (
+//Cr
+multiply mult3_1 (
   .clk(clk), // input clk
   .a(matrix_coef3_1), // input [17 : 0] a
-  .b({1'b0, R}), // input [8 : 0] b
-  .p(mul3_1) // output [26 : 0] p
+  .b({10'b0, R}), // input [17 : 0] b
+  .p(mul3_1) // output [35 : 0] p
 );
 
-multiply BmG_3 (
+multiply mult3_2 (
   .clk(clk), // input clk
   .a(matrix_coef3_2), // input [17 : 0] a
-  .b({1'b0, G}), // input [8 : 0] b
-  .p(mul3_2) // output [26 : 0] p
+  .b({10'b0, G}), // input [17 : 0] b
+  .p(mul3_2) // output [35 : 0] p
 );
 
-multiply CmB_3 (
+multiply mult3_3 (
   .clk(clk), // input clk
   .a(matrix_coef3_3), // input [17 : 0] a
-  .b({1'b0, B}), // input [8 : 0] b
-  .p(mul3_3) // output [26 : 0] p
+  .b({10'b0, B}), // input [17 : 0] b
+  .p(mul3_3) // output [35 : 0] p
 );
 
-sum ApB_3 (
-  .a({1'b0, mul3_1[26:17]}), // input [10 : 0] a
-  .b({1'b0, mul3_2[26:17]}), // input [10 : 0] b
+sum summ3_1 (
+  .a(mul3_1[25:17]), // input [8 : 0] a
+  .b(mul3_2[25:17]), // input [8 : 0] b
   .clk(clk), // input clk
-  .ce(ce),
-  .s(sum3_1) // output [10 : 0] s
+  .ce(ce), // input ce
+  .s(sum3_1) // output [8 : 0] s
 );
 
-sum CpCONST_3 (
-  .a({1'b0, mul3_3[26:17]}), // input [10 : 0] a
-  .b(vector_coef3), // input [10 : 0] b
+sum summ3_2 (
+  .a(mul3_3[25:17]), // input [8 : 0] a
+  .b(vector_coef3), // input [8 : 0] b
   .clk(clk), // input clk
-  .ce(ce),
-  .s(sum3_2) // output [10 : 0] s
+  .ce(ce), // input ce
+  .s(sum3_2) // output [8 : 0] s
 );
 
-sum outCr (
-  .a(sum3_1), // input [10 : 0] a
-  .b(sum3_2), // input [10 : 0] b
+
+sum summ3_3 (
+  .a(sum3_1), // input [8 : 0] a
+  .b(sum3_2), // input [8 : 0] b
   .clk(clk), // input clk
-  .ce(ce),
-  .s(sum3_3) // output [10 : 0] s
+  .ce(ce), // input ce
+  .s(sum3_3) // output [8 : 0] s
 );
+
 
 //moduly opozniajace
 delay #

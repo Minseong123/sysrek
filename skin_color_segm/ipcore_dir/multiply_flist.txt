@@ -1,4 +1,5 @@
 # Output products list for <multiply>
+_xmsgs/pn_parser.xmsgs
 multiply/doc/mult_gen_ds255.pdf
 multiply/doc/mult_gen_v11_2_readme.txt
 multiply/doc/mult_gen_v11_2_vinfo.html

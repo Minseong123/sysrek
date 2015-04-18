@@ -56,11 +56,11 @@
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 sum your_instance_name (
-  .a(a), // input [10 : 0] a
-  .b(b), // input [10 : 0] b
+  .a(a), // input [8 : 0] a
+  .b(b), // input [8 : 0] b
   .clk(clk), // input clk
   .ce(ce), // input ce
-  .s(s) // output [10 : 0] s
+  .s(s) // output [8 : 0] s
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

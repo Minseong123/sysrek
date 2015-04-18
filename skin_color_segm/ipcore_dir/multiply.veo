@@ -53,8 +53,8 @@
 multiply your_instance_name (
   .clk(clk), // input clk
   .a(a), // input [17 : 0] a
-  .b(b), // input [8 : 0] b
-  .p(p) // output [26 : 0] p
+  .b(b), // input [17 : 0] b
+  .p(p) // output [35 : 0] p
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

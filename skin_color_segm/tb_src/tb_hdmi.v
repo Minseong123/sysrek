@@ -95,9 +95,9 @@ rgb2ycbcr conversion
 	assign tx_de 				= conv_de;
 	assign tx_hsync 			= conv_hsync;
 	assign tx_vsync 			= conv_vsync;
-	assign tx_blue         	= Y;
+	assign tx_red         	= Y;
 	assign tx_green        	= Cb;
-	assign tx_red          	= Cr;
+	assign tx_blue         	= Cr;
 
 // --------------------------------------
 // HDMI output

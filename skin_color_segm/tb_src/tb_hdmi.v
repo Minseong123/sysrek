@@ -108,8 +108,4 @@ hdmi_out file_output (
     .hdmi_de(tx_de), 
     .hdmi_data({8'b0,tx_red,tx_green,tx_blue})
     );
-
-initial begin
-	#100;
-	end;
 endmodule

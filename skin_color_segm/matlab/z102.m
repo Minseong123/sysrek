@@ -1,8 +1,8 @@
 %% zadanie 10.2
 
-%% za??aduj plik graficzny
+%% zaladuj plik graficzny
 im = imread('taylor64.ppm');
-%imshow(im)
+% imshow(im)
 
 %% konwersja na FI
 signed = 0;
@@ -26,36 +26,22 @@ constCoef = [   0;
  matrixCoefFI = fi(matrixCoef, signed, wordLength, fractionLength,...
      'RoundingMethod', 'floor');
  
- constCoefFI = fi(constCoef, 1, 9, 0, 'RoundingMethod', 'floor');
+ constCoefFI = fi(constCoef, 1, 10, 0, 'RoundingMethod', 'floor');
  
- %% wykonaj konwersj?? na liczbach FI
-  
-imageYCbCrFI = reshape(imFI, [], 3) * matrixCoefFI;
-imageYCbCrFI(:, 1) = imageYCbCrFI(:, 1) + constCoefFI(1);
-imageYCbCrFI(:, 2) = imageYCbCrFI(:, 2) + constCoefFI(2);
-imageYCbCrFI(:, 3) = imageYCbCrFI(:, 3) + constCoefFI(3);
-imageYCbCrFI = reshape(imageYCbCrFI, size(imFI));
+ %% wykonaj konwersje na liczbach FI
 
-%% robi to samo co poni??sza p??tla
+for i = 1:size(im, 1)
+    for j = 1:size(im, 2)
+        for k=1:size(im, 3)
+        imageYCbCrFI(i, j, k) = matrixCoefFI(k, 1) * imFI(i, j, 1) + ...
+                                 matrixCoefFI(k, 2) * imFI(i, j, 2) + ...
+                                 matrixCoefFI(k, 3) * imFI(i, j, 3) + ...
+                                 constCoefFI(k);
+        end
+    end
+end
 
-% for i = 1:size(im, 1)
-%     for j = 1:size(im, 2)   
-%         imageYCbCrFI(i, j, 1) = matrixCoefFI(1, 1) * imFI(i, j, 1) + ...
-%                                  matrixCoefFI(1, 2) * imFI(i, j, 2) + ...
-%                                  matrixCoefFI(1, 3) * imFI(i, j, 3) + ...
-%                                  constCoefFI(1);
-%         imageYCbCrFI(i, j, 1) = matrixCoefFI(2, 1) * imFI(i, j, 1) + ...
-%                                  matrixCoefFI(2, 2) * imFI(i, j, 2) + ...
-%                                  matrixCoefFI(2, 3) * imFI(i, j, 3) + ...
-%                                  constCoefFI(2);
-%         imageYCbCrFI(i, j, 1) = matrixCoefFI(3, 1) * imFI(i, j, 1) + ...
-%                                  matrixCoefFI(3, 2) * imFI(i, j, 2) + ...
-%                                  matrixCoefFI(3, 3) * imFI(i, j, 3) + ...
-%                                  constCoefFI(3); 
-%     end
-% end
-
-%% pozbycie si?? cz????ci u??amkowej
+%% pozbycie sie czesci ulamkowej
 typ_wyniku = numerictype(1, 9, 0);
 
 wynikFI = fi(zeros(size(im)), 1, 9, 0);
@@ -65,4 +51,6 @@ for i = 1:size(imageYCbCrFI, 1)
             wynikFI(i, j, k) = quantize(imageYCbCrFI(i, j, k), typ_wyniku);
         end
     end
-end  
+end
+
+figure, imshow(wynikFI.uint8)

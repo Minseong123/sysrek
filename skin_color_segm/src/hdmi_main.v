@@ -65,7 +65,7 @@ module hdmi_main
   output wire [3:0] TX0_TMDSB,
   
   	
-  //input  wire [1:0] SW,
+  input  wire [2:0] SW,
 
   output wire [7:0] LED
 );
@@ -246,26 +246,47 @@ rgb2ycbcr conversion
   wire         tx_vsync;
   wire         tx_pll_reset;
   
+  // implementacja multipleksera 
+  // umozliwiajacego wyswietlanie roznych wyjsc
+  // w zaleznosci od wartosci SW
+  
+  wire [7:0] 	r_mux 	[1:0];
+  wire [7:0] 	g_mux 	[1:0];
+  wire [7:0] 	b_mux 	[1:0];
+  wire			de_mux	[1:0];
+  wire			hs_mux	[1:0];
+  wire			vs_mux	[1:0];
+  
+  
+  //RGB
+  assign r_mux[0] = tx_red;
+  assign g_mux[0] = tx_green;
+  assign b_mux[0] = tx_blue;
+  assign de_mux[0] = tx_de;
+  assign hs_mux[0] = tx_hsync;
+  assign vs_mux[0] = tx_vsync;
+  
+  // YCbCr
+  assign r_mux[1] = Y;
+  assign g_mux[1] = Cb;
+  assign b_mux[1] = Cr;
+  assign de_mux[1] = conv_de;
+  assign hs_mux[1] = conv_hsync;
+  assign vs_mux[1] = conv_vsync; 
+  
   
   // -----------------------------------------------------------------------------
   // HDMI output port signal assigments 
   // -----------------------------------------------------------------------------  
-  
-//  assign tx_de           = rx_de;
-//  assign tx_blue         = rx_blue;
-//  assign tx_green        = rx_green;
-//  assign tx_red          = rx_red;
-//  assign tx_hsync        = rx_hsync;
-//  assign tx_vsync        = rx_vsync;
-  assign tx_pll_reset    = rx_reset;
-  
-// moje zmiany
-  assign tx_de           = conv_de;
-  assign tx_blue         = Y;
-  assign tx_green        = Cb;
-  assign tx_red          = Cr;
-  assign tx_hsync        = conv_hsync;
-  assign tx_vsync        = conv_vsync;  
+
+  assign tx_pll_reset	= rx_reset;
+// przypisanie z muxow
+  assign tx_red			= r_mux[SW];
+  assign tx_green			= g_mux[SW];
+  assign tx_blue			= b_mux[SW];
+  assign tx_de				= de_mux[SW];
+  assign tx_hsync			= hs_mux[SW];
+  assign tx_vsync			= vs_mux[SW];  
   
   //////////////////////////////////////////////////////////////////
   // Instantiate a dedicate PLL for output port

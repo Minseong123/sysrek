@@ -201,6 +201,8 @@ module hdmi_main
   // IMAGE PROCESSING  
   // -----------------------------------------------------------------------------  
 
+
+//konwersja z rgb na ycbcr
 wire [7:0] 	Y;
 wire [7:0] 	Cb;
 wire [7:0] 	Cr;
@@ -230,6 +232,24 @@ rgb2ycbcr conversion
 	.out_de(conv_de)
 );
 
+//progowanie obrazu wzgledem chrominacji
+wire [7:0] binary;
+
+ycbcr_thresholding thresholding
+(
+	.Y(Y),
+	.Cb(Cb),
+	.Cr(Cr),
+	
+	.Ta(8'd90),
+	.Tb(8'd140),
+	.Tc(8'd90),
+	.Td(8'd126),
+	
+	.binary(binary)
+
+);
+
   // -----------------------------------------------------------------------------
   // HDMI output port 
   // -----------------------------------------------------------------------------  
@@ -250,13 +270,12 @@ rgb2ycbcr conversion
   // umozliwiajacego wyswietlanie roznych wyjsc
   // w zaleznosci od wartosci SW
   
-  wire [7:0] 	r_mux 	[1:0];
-  wire [7:0] 	g_mux 	[1:0];
-  wire [7:0] 	b_mux 	[1:0];
-  wire			de_mux	[1:0];
-  wire			hs_mux	[1:0];
-  wire			vs_mux	[1:0];
-  
+  wire [7:0] 	r_mux 	[2:0];
+  wire [7:0] 	g_mux 	[2:0];
+  wire [7:0] 	b_mux 	[2:0];
+  wire			de_mux	[2:0];
+  wire			hs_mux	[2:0];
+  wire			vs_mux	[2:0];
   
   //RGB
   assign r_mux[0] = tx_red;
@@ -274,6 +293,13 @@ rgb2ycbcr conversion
   assign hs_mux[1] = conv_hsync;
   assign vs_mux[1] = conv_vsync; 
   
+  //thresholding
+  assign r_mux[2] = binary;
+  assign g_mux[2] = binary;
+  assign b_mux[2] = binary;
+  assign de_mux[2] = conv_de;
+  assign hs_mux[2] = conv_hsync;
+  assign vs_mux[2] = conv_vsync; 
   
   // -----------------------------------------------------------------------------
   // HDMI output port signal assigments 

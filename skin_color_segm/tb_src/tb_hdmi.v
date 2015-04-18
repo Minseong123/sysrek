@@ -87,6 +87,22 @@ rgb2ycbcr conversion
 	.out_de(conv_de)
 );
 	
+wire [7:0] binary;
+
+ycbcr_thresholding thresholding
+(
+	.Y(Y),
+	.Cb(Cb),
+	.Cr(Cr),
+	
+	.Ta(8'd90),
+	.Tb(8'd140),
+	.Tc(8'd90),
+	.Td(8'd126),
+	
+	.binary(binary)
+
+);
 	 
 // --------------------------------------
 // Output assigment
@@ -95,9 +111,9 @@ rgb2ycbcr conversion
 	assign tx_de 				= conv_de;
 	assign tx_hsync 			= conv_hsync;
 	assign tx_vsync 			= conv_vsync;
-	assign tx_red         	= Y;
-	assign tx_green        	= Cb;
-	assign tx_blue         	= Cr;
+	assign tx_red         	= binary;
+	assign tx_green        	= binary;
+	assign tx_blue         	= binary;
 
 // --------------------------------------
 // HDMI output

@@ -1,0 +1,15 @@
+# Output products list for <sub8>
+_xmsgs/pn_parser.xmsgs
+sub8/doc/c_addsub_v11_0_readme.txt
+sub8/doc/c_addsub_v11_0_vinfo.html
+sub8/doc/ds214_addsub.pdf
+sub8.asy
+sub8.gise
+sub8.ngc
+sub8.sym
+sub8.v
+sub8.veo
+sub8.xco
+sub8.xise
+sub8_flist.txt
+sub8_xmdf.tcl

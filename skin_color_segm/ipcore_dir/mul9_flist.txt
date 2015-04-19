@@ -1,0 +1,15 @@
+# Output products list for <mul9>
+_xmsgs/pn_parser.xmsgs
+mul9/doc/mult_gen_ds255.pdf
+mul9/doc/mult_gen_v11_2_readme.txt
+mul9/doc/mult_gen_v11_2_vinfo.html
+mul9.asy
+mul9.gise
+mul9.ngc
+mul9.sym
+mul9.v
+mul9.veo
+mul9.xco
+mul9.xise
+mul9_flist.txt
+mul9_xmdf.tcl

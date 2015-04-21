@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Apr 21 20:19:50 2015
+# Date: Tue Apr 21 20:36:12 2015
 #
 ##############################################################
 #
@@ -12,7 +12,7 @@
 #
 ##############################################################
 #
-#  Generated from component: xilinx.com:ip:div_gen:3.0
+#  Generated from component: xilinx.com:ip:mult_gen:11.2
 #
 ##############################################################
 #
@@ -36,26 +36,33 @@ SET verilogsim = true
 SET vhdlsim = false
 # END Project Options
 # BEGIN Select
-SELECT Divider_Generator family Xilinx,_Inc. 3.0
+SELECT Multiplier xilinx.com:ip:mult_gen:11.2
 # END Select
 # BEGIN Parameters
-CSET algorithm_type=Radix2
-CSET ce=false
-CSET clocks_per_division=1
-CSET component_name=div12
-CSET divide_by_zero_detect=false
-CSET dividend_and_quotient_width=12
-CSET divisor_width=12
-CSET fractional_width=12
-CSET latency=28
-CSET latency_configuration=Automatic
-CSET operand_sign=Signed
-CSET remainder_type=Fractional
-CSET sclr=false
-CSET sclr_ce_priority=SCLR_overrides_CE
+CSET ccmimp=Distributed_Memory
+CSET clockenable=false
+CSET component_name=mul10
+CSET constvalue=129
+CSET internaluser=0
+CSET multiplier_construction=Use_Mults
+CSET multtype=Parallel_Multiplier
+CSET optgoal=Speed
+CSET outputwidthhigh=19
+CSET outputwidthlow=0
+CSET pipestages=2
+CSET portatype=Signed
+CSET portawidth=10
+CSET portbtype=Signed
+CSET portbwidth=10
+CSET roundpoint=0
+CSET sclrcepriority=SCLR_Overrides_CE
+CSET syncclear=false
+CSET use_custom_output_width=false
+CSET userounding=false
+CSET zerodetect=false
 # END Parameters
 # BEGIN Extra information
-MISC pkg_timestamp=2013-10-13T18:46:09Z
+MISC pkg_timestamp=2013-07-22T11:36:26Z
 # END Extra information
 GENERATE
-# CRC: 8dc89034
+# CRC: 2ed1f841

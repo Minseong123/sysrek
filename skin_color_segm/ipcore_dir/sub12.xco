@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Apr 21 20:19:50 2015
+# Date: Tue Apr 21 20:13:05 2015
 #
 ##############################################################
 #
@@ -12,7 +12,7 @@
 #
 ##############################################################
 #
-#  Generated from component: xilinx.com:ip:div_gen:3.0
+#  Generated from component: xilinx.com:ip:c_addsub:11.0
 #
 ##############################################################
 #
@@ -36,26 +36,38 @@ SET verilogsim = true
 SET vhdlsim = false
 # END Project Options
 # BEGIN Select
-SELECT Divider_Generator family Xilinx,_Inc. 3.0
+SELECT Adder_Subtracter xilinx.com:ip:c_addsub:11.0
 # END Select
 # BEGIN Parameters
-CSET algorithm_type=Radix2
-CSET ce=false
-CSET clocks_per_division=1
-CSET component_name=div12
-CSET divide_by_zero_detect=false
-CSET dividend_and_quotient_width=12
-CSET divisor_width=12
-CSET fractional_width=12
-CSET latency=28
+CSET a_type=Signed
+CSET a_width=12
+CSET add_mode=Subtract
+CSET ainit_value=0
+CSET b_constant=false
+CSET b_type=Signed
+CSET b_value=000000000000
+CSET b_width=12
+CSET borrow_sense=Active_Low
+CSET bypass=false
+CSET bypass_ce_priority=CE_Overrides_Bypass
+CSET bypass_sense=Active_High
+CSET c_in=false
+CSET c_out=false
+CSET ce=true
+CSET component_name=sub12
+CSET implementation=Fabric
+CSET latency=2
 CSET latency_configuration=Automatic
-CSET operand_sign=Signed
-CSET remainder_type=Fractional
+CSET out_width=12
 CSET sclr=false
-CSET sclr_ce_priority=SCLR_overrides_CE
+CSET sinit=false
+CSET sinit_value=0
+CSET sset=false
+CSET sync_ce_priority=Sync_Overrides_CE
+CSET sync_ctrl_priority=Reset_Overrides_Set
 # END Parameters
 # BEGIN Extra information
-MISC pkg_timestamp=2013-10-13T18:46:09Z
+MISC pkg_timestamp=2013-07-22T10:35:41Z
 # END Extra information
 GENERATE
-# CRC: 8dc89034
+# CRC: 47ffb86b

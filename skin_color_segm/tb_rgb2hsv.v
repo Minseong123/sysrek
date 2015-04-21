@@ -4,9 +4,9 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   17:49:48 04/20/2015
+// Create Date:   21:12:31 04/21/2015
 // Design Name:   rgb2hsv
-// Module Name:   /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/tb_rgb2hsv.v
+// Module Name:   /home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/tr_rgb2hsv.v
 // Project Name:  vision
 // Target Device:  
 // Tool versions:  
@@ -79,6 +79,6 @@ module tb_rgb2hsv;
 	end
 
 always
-	#10 clk = ~clk;
+	#1 clk = ~clk;
 endmodule
 

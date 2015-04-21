@@ -19,6 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module min(
+	 input clk,
+	 
     input [9:0] a,
     input [9:0] b,
     input [9:0] c,
@@ -27,7 +29,7 @@ module min(
     );
 reg [9:0] val;
 reg [1:0] i;
-always
+always @(posedge clk)
 	begin
 	if (a < b && a < c)
 	begin

@@ -85,39 +85,6 @@ assign n_R = {1'b0, q_R[0], f_R};
 assign n_G = {1'b0, q_G[0], f_G};
 assign n_B = {1'b0, q_B[0], f_B};
 
-max max_RGB
-(
-	.clk(clk),
-	
-	.a(n_R),
-	.b(n_G),
-	.c(n_B),
-	
-	.o(v_max),
-	.index(i_max)
-);
-
-min min_RGB
-(
-	.clk(clk),
-	
-	.a(n_R),
-	.b(n_G),
-	.c(n_B),
-	
-	.o(v_min),
-	.index(i_min)
-);
-
-//lat = 2
-sub10 sub_delta (
-  .a(v_max), // input [9 : 0] a
-  .b(v_min), // input [9 : 0] b
-  .clk(clk), // input clk
-  .ce(ce), // input ce
-  .s(v_delta) // output [9 : 0] s
-);
-
 //opoznij sygnaly n_{RGB} by synchronizowac z liczeniem delty
 wire signed [9:0] delayed_R;
 wire signed [9:0] delayed_G;
@@ -161,9 +128,43 @@ delay_B
 	.q(delayed_B)
 );
 
+//wyznaczanie max, min i delty
+max max_RGB
+(
+	.clk(clk),
+	
+	.a(delayed_R),
+	.b(delayed_G),
+	.c(delayed_B),
+	
+	.o(v_max),
+	.index(i_max)
+);
+
+min min_RGB
+(
+	.clk(clk),
+	
+	.a(delayed_R),
+	.b(delayed_G),
+	.c(delayed_B),
+	
+	.o(v_min),
+	.index(i_min)
+);
+
+//lat = 2
+sub10 sub_delta (
+  .a(v_max), // input [9 : 0] a
+  .b(v_min), // input [9 : 0] b
+  .clk(clk), // input clk
+  .ce(ce), // input ce
+  .s(v_delta) // output [9 : 0] s
+);
+
+
 //obliczenia HSV
 
-wire [9:0] v_H; //z1c8u
 wire [9:0] v_S; //z1c8u
 wire [9:0] v_V; //z1c8u
 
@@ -323,13 +324,47 @@ div12 div_H2 (
 wire signed [9:0] v_H4;
 assign v_H4 = {q_H2[11], q_H2[0], f_H2[10:3]}; //todo ??
 
-
+//opoznij sygnaly V i S
 wire [9:0] v_H_final;
 wire [9:0] v_S_final;
 wire [9:0] v_V_final;
+
+delay #
+(
+	.N(10),
+	.DELAY(60)
+)
+delay_V
+(
+	.d(v_V),
+	.ce(ce),
+	.clk(clk),
+	.q(v_V_final)
+);
+
+
+delay #
+(
+	.N(10),
+	.DELAY(36)
+)
+delay_S
+(
+	.d(v_S),
+	.ce(ce),
+	.clk(clk),
+	.q(v_S_final)
+);
+
 assign v_H_final = v_H4;
-assign v_S_final = v_S;
-assign v_V_final = v_V;
+
+//wire [9:0] v_H_final;
+//wire [9:0] v_S_final;
+//wire [9:0] v_V_final;
+//assign v_H_final = v_H4;
+//assign v_S_final = v_S;
+//assign v_V_final = v_V;
+
 //pomnoz HSV przez 255
 wire [19:0] final_H;
 wire [19:0] final_S;
@@ -356,4 +391,23 @@ mul10 mul_final_V (
 assign H = final_H[17:10];
 assign S = final_S[17:10];
 assign V = final_V[17:10];
+
+//opoznij sygnaly synchronizacji
+wire [2:0] syncs;
+delay #
+(
+	.N(3),
+	.DELAY(73)
+)
+delay_sync
+(
+	.d({in_hsync, in_vsync, in_de}),
+	.ce(ce),
+	.clk(clk),
+	.q(syncs)
+);
+
+assign out_hsync = syncs[2];
+assign out_vsync = syncs[1];
+assign out_de = syncs[0];
 endmodule

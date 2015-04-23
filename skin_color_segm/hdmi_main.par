@@ -1,7 +1,7 @@
 Release 14.7 par P.20131013 (lin64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-lsriw::  Thu Apr 23 19:25:49 2015
+lsriw::  Thu Apr 23 19:35:34 2015
 
 par -w -intstyle ise -ol high -mt off hdmi_main_map.ncd hdmi_main.ncd
 hdmi_main.pcf 
@@ -35,36 +35,39 @@ Device speed data version:  "PRODUCTION 1.23 2013-10-13".
 Device Utilization Summary:
 
 Slice Logic Utilization:
-  Number of Slice Registers:                   356 out of  54,576    1%
-    Number used as Flip Flops:                 356
+  Number of Slice Registers:                   493 out of  54,576    1%
+    Number used as Flip Flops:                 493
     Number used as Latches:                      0
     Number used as Latch-thrus:                  0
     Number used as AND/OR logics:                0
-  Number of Slice LUTs:                        356 out of  27,288    1%
-    Number used as logic:                      285 out of  27,288    1%
-      Number using O6 output only:             201
-      Number using O5 output only:              30
-      Number using O5 and O6:                   54
+  Number of Slice LUTs:                        518 out of  27,288    1%
+    Number used as logic:                      398 out of  27,288    1%
+      Number using O6 output only:             280
+      Number using O5 output only:              48
+      Number using O5 and O6:                   70
       Number used as ROM:                        0
-    Number used as Memory:                      62 out of   6,408    1%
-      Number used as Dual Port RAM:             62
-        Number using O6 output only:             6
-        Number using O5 output only:             4
-        Number using O5 and O6:                 52
+    Number used as Memory:                      82 out of   6,408    1%
+      Number used as Dual Port RAM:             64
+        Number using O6 output only:             8
+        Number using O5 output only:             0
+        Number using O5 and O6:                 56
       Number used as Single Port RAM:            0
-      Number used as Shift Register:             0
-    Number used exclusively as route-thrus:      9
-      Number with same-slice register load:      6
-      Number with same-slice carry load:         3
+      Number used as Shift Register:            18
+        Number using O6 output only:             6
+        Number using O5 output only:             0
+        Number using O5 and O6:                 12
+    Number used exclusively as route-thrus:     38
+      Number with same-slice register load:     15
+      Number with same-slice carry load:        23
       Number with other load:                    0
 
 Slice Logic Distribution:
-  Number of occupied Slices:                   178 out of   6,822    2%
-  Number of MUXCYs used:                        48 out of  13,644    1%
-  Number of LUT Flip Flop pairs used:          433
-    Number with an unused Flip Flop:           129 out of     433   29%
-    Number with an unused LUT:                  77 out of     433   17%
-    Number of fully used LUT-FF pairs:         227 out of     433   52%
+  Number of occupied Slices:                   208 out of   6,822    3%
+  Number of MUXCYs used:                       120 out of  13,644    1%
+  Number of LUT Flip Flop pairs used:          579
+    Number with an unused Flip Flop:           172 out of     579   29%
+    Number with an unused LUT:                  61 out of     579   10%
+    Number of fully used LUT-FF pairs:         346 out of     579   59%
     Number of slice register sites lost
       to control set restrictions:               0 out of  54,576    0%
 
@@ -105,7 +108,7 @@ Specific Feature Utilization:
   Number of BUFHs:                               0 out of     256    0%
   Number of BUFPLLs:                             2 out of       8   25%
   Number of BUFPLL_MCBs:                         0 out of       4    0%
-  Number of DSP48A1s:                            0 out of      58    0%
+  Number of DSP48A1s:                            6 out of      58   10%
   Number of ICAPs:                               0 out of       1    0%
   Number of MCBs:                                0 out of       2    0%
   Number of PCILOGICSEs:                         0 out of       2    0%
@@ -138,17 +141,17 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                |    Check    | Worst Case |  Best Case | Timing |   Timing   
                                             |             |    Slack   | Achievable | Errors |    Score   
 ----------------------------------------------------------------------------------------------------------
-* TS_tx_pllclk2 = PERIOD TIMEGRP "tx_pllclk | SETUP       |    -0.186ns|     5.186ns|       1|         186
-  2" TS_rx_pllclk1 * 2 HIGH 50%             | HOLD        |    -0.924ns|            |      10|        5061
+* TS_tx_pllclk2 = PERIOD TIMEGRP "tx_pllclk | SETUP       |     0.230ns|     4.770ns|       0|           0
+  2" TS_rx_pllclk1 * 2 HIGH 50%             | HOLD        |    -0.924ns|            |       5|        4215
 ----------------------------------------------------------------------------------------------------------
 * TS_DVI_CLOCK1 = PERIOD TIMEGRP "DVI_CLOCK | MINPERIOD   |    -0.052ns|     1.052ns|       1|          52
   1" 100 MHz HIGH 50%                       | MINLOWPULSE |     6.666ns|     3.334ns|       0|           0
 ----------------------------------------------------------------------------------------------------------
-* TS_rx_pllclk1 = PERIOD TIMEGRP "rx_pllclk | SETUP       |     2.084ns|     5.832ns|       0|           0
-  1" TS_DVI_CLOCK1 HIGH 50%                 | HOLD        |     0.328ns|            |       0|           0
+* TS_rx_pllclk1 = PERIOD TIMEGRP "rx_pllclk | SETUP       |     1.838ns|     6.324ns|       0|           0
+  1" TS_DVI_CLOCK1 HIGH 50%                 | HOLD        |     0.344ns|            |       0|           0
                                             | MINPERIOD   |    -0.052ns|     1.052ns|       1|          52
 ----------------------------------------------------------------------------------------------------------
-  TS_dvi_rx1_pllclk2 = PERIOD TIMEGRP "dvi_ | SETUP       |     0.912ns|     4.088ns|       0|           0
+  TS_dvi_rx1_pllclk2 = PERIOD TIMEGRP "dvi_ | SETUP       |     1.352ns|     3.648ns|       0|           0
   rx1_pllclk2" TS_DVI_CLOCK1 * 2 HIGH       | HOLD        |     0.701ns|            |       0|           0
      50%                                    |             |            |            |        |            
 ----------------------------------------------------------------------------------------------------------
@@ -171,12 +174,12 @@ Derived Constraints for TS_DVI_CLOCK1
 |           Constraint          | Requirement |-------------+-------------|-------------+-------------|-------------+-------------|
 |                               |             |   Direct    | Derivative  |   Direct    | Derivative  |   Direct    | Derivative  |
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
-|TS_DVI_CLOCK1                  |     10.000ns|      3.334ns|     10.372ns|            1|           12|            0|         3116|
-| TS_rx_pllclk1                 |     10.000ns|      5.832ns|     10.372ns|            1|           11|         1655|          269|
+|TS_DVI_CLOCK1                  |     10.000ns|      3.334ns|      9.540ns|            1|            6|            0|         4427|
+| TS_rx_pllclk1                 |     10.000ns|      6.324ns|      9.540ns|            1|            5|         2957|          269|
 |  TS_tx_pllclk0                |      1.000ns|          N/A|          N/A|            0|            0|            0|            0|
-|  TS_tx_pllclk2                |      5.000ns|      5.186ns|          N/A|           11|            0|          269|            0|
+|  TS_tx_pllclk2                |      5.000ns|      4.770ns|          N/A|            5|            0|          269|            0|
 | TS_dvi_rx1_pllclk0            |      1.000ns|          N/A|          N/A|            0|            0|            0|            0|
-| TS_dvi_rx1_pllclk2            |      5.000ns|      4.088ns|          N/A|            0|            0|         1192|            0|
+| TS_dvi_rx1_pllclk2            |      5.000ns|      3.648ns|          N/A|            0|            0|         1201|            0|
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
 
 3 constraints not met.
@@ -195,29 +198,29 @@ WARNING:Par:288 - The signal SW<2>_IBUF has no load.  PAR will not attempt to ro
 Starting Router
 
 
-Phase  1  : 2310 unrouted;      REAL time: 4 secs 
+Phase  1  : 3770 unrouted;      REAL time: 4 secs 
 
-Phase  2  : 1843 unrouted;      REAL time: 5 secs 
+Phase  2  : 2455 unrouted;      REAL time: 6 secs 
 
-Phase  3  : 424 unrouted;      REAL time: 7 secs 
+Phase  3  : 575 unrouted;      REAL time: 7 secs 
 
-Phase  4  : 449 unrouted; (Setup:217, Hold:9453, Component Switching Limit:104)     REAL time: 8 secs 
+Phase  4  : 575 unrouted; (Setup:0, Hold:8770, Component Switching Limit:104)     REAL time: 8 secs 
 
 Updating file: hdmi_main.ncd with current fully routed design.
 
-Phase  5  : 0 unrouted; (Setup:217, Hold:9453, Component Switching Limit:104)     REAL time: 10 secs 
+Phase  5  : 0 unrouted; (Setup:0, Hold:8770, Component Switching Limit:104)     REAL time: 9 secs 
 
-Phase  6  : 0 unrouted; (Setup:217, Hold:9453, Component Switching Limit:104)     REAL time: 10 secs 
+Phase  6  : 0 unrouted; (Setup:0, Hold:8770, Component Switching Limit:104)     REAL time: 9 secs 
 
-Phase  7  : 0 unrouted; (Setup:0, Hold:9453, Component Switching Limit:104)     REAL time: 11 secs 
+Phase  7  : 0 unrouted; (Setup:0, Hold:8770, Component Switching Limit:104)     REAL time: 9 secs 
 
-Phase  8  : 0 unrouted; (Setup:0, Hold:9453, Component Switching Limit:104)     REAL time: 11 secs 
+Phase  8  : 0 unrouted; (Setup:0, Hold:8770, Component Switching Limit:104)     REAL time: 9 secs 
 
-Phase  9  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:104)     REAL time: 12 secs 
+Phase  9  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:104)     REAL time: 9 secs 
 
-Phase 10  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:104)     REAL time: 12 secs 
-Total REAL time to Router completion: 12 secs 
-Total CPU time to Router completion: 12 secs 
+Phase 10  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:104)     REAL time: 9 secs 
+Total REAL time to Router completion: 9 secs 
+Total CPU time to Router completion: 9 secs 
 
 Partition Implementation Status
 -------------------------------
@@ -235,13 +238,13 @@ Generating Clock Report
 +---------------------+--------------+------+------+------------+-------------+
 |        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +---------------------+--------------+------+------+------------+-------------+
-|             tx_pclk |  BUFGMUX_X2Y2| No   |   10 |  0.038     |  1.758      |
+|             rx_pclk | BUFGMUX_X3Y13| No   |  110 |  0.037     |  1.771      |
 +---------------------+--------------+------+------+------------+-------------+
-|      dvi_rx1/pclkx2 |  BUFGMUX_X2Y4| No   |   70 |  0.173     |  1.893      |
+|      dvi_rx1/pclkx2 |  BUFGMUX_X2Y4| No   |   73 |  0.159     |  1.893      |
 +---------------------+--------------+------+------+------------+-------------+
-|        dvi_rx1/pclk | BUFGMUX_X3Y13| No   |   75 |  0.050     |  1.769      |
+|           tx_pclkx2 |  BUFGMUX_X2Y3| No   |   26 |  0.364     |  2.081      |
 +---------------------+--------------+------+------+------------+-------------+
-|           tx_pclkx2 |  BUFGMUX_X2Y3| No   |   32 |  0.364     |  2.081      |
+|             tx_pclk |  BUFGMUX_X2Y2| No   |   19 |  0.050     |  1.769      |
 +---------------------+--------------+------+------+------------+-------------+
 |     dvi_rx1/pclkx10 |         Local|      |   12 |  0.038     |  1.560      |
 +---------------------+--------------+------+------+------------+-------------+
@@ -287,15 +290,15 @@ Asterisk (*) preceding a constraint indicates it was not met.
 * TS_DVI_CLOCK1 = PERIOD TIMEGRP "DVI_CLOCK | MINPERIOD   |    -0.052ns|     1.052ns|       1|          52
   1" 100 MHz HIGH 50%                       | MINLOWPULSE |     6.666ns|     3.334ns|       0|           0
 ----------------------------------------------------------------------------------------------------------
-* TS_rx_pllclk1 = PERIOD TIMEGRP "rx_pllclk | SETUP       |     1.757ns|     6.486ns|       0|           0
-  1" TS_DVI_CLOCK1 HIGH 50%                 | HOLD        |     0.075ns|            |       0|           0
+* TS_rx_pllclk1 = PERIOD TIMEGRP "rx_pllclk | SETUP       |     1.474ns|     7.052ns|       0|           0
+  1" TS_DVI_CLOCK1 HIGH 50%                 | HOLD        |     0.049ns|            |       0|           0
                                             | MINPERIOD   |    -0.052ns|     1.052ns|       1|          52
 ----------------------------------------------------------------------------------------------------------
-  TS_tx_pllclk2 = PERIOD TIMEGRP "tx_pllclk | SETUP       |     0.314ns|     4.686ns|       0|           0
+  TS_tx_pllclk2 = PERIOD TIMEGRP "tx_pllclk | SETUP       |     0.484ns|     4.516ns|       0|           0
   2" TS_rx_pllclk1 * 2 HIGH 50%             | HOLD        |     0.181ns|            |       0|           0
 ----------------------------------------------------------------------------------------------------------
-  TS_dvi_rx1_pllclk2 = PERIOD TIMEGRP "dvi_ | SETUP       |     1.106ns|     3.894ns|       0|           0
-  rx1_pllclk2" TS_DVI_CLOCK1 * 2 HIGH       | HOLD        |     0.354ns|            |       0|           0
+  TS_dvi_rx1_pllclk2 = PERIOD TIMEGRP "dvi_ | SETUP       |     0.870ns|     4.130ns|       0|           0
+  rx1_pllclk2" TS_DVI_CLOCK1 * 2 HIGH       | HOLD        |     0.353ns|            |       0|           0
      50%                                    |             |            |            |        |            
 ----------------------------------------------------------------------------------------------------------
   TS_dvi_rx1_pllclk0 = PERIOD TIMEGRP "dvi_ | N/A         |         N/A|         N/A|     N/A|         N/A
@@ -317,12 +320,12 @@ Derived Constraints for TS_DVI_CLOCK1
 |           Constraint          | Requirement |-------------+-------------|-------------+-------------|-------------+-------------|
 |                               |             |   Direct    | Derivative  |   Direct    | Derivative  |   Direct    | Derivative  |
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
-|TS_DVI_CLOCK1                  |     10.000ns|      3.334ns|      9.372ns|            1|            1|            0|         3116|
-| TS_rx_pllclk1                 |     10.000ns|      6.486ns|      9.372ns|            1|            0|         1655|          269|
+|TS_DVI_CLOCK1                  |     10.000ns|      3.334ns|      9.032ns|            1|            1|            0|         4427|
+| TS_rx_pllclk1                 |     10.000ns|      7.052ns|      9.032ns|            1|            0|         2957|          269|
 |  TS_tx_pllclk0                |      1.000ns|          N/A|          N/A|            0|            0|            0|            0|
-|  TS_tx_pllclk2                |      5.000ns|      4.686ns|          N/A|            0|            0|          269|            0|
+|  TS_tx_pllclk2                |      5.000ns|      4.516ns|          N/A|            0|            0|          269|            0|
 | TS_dvi_rx1_pllclk0            |      1.000ns|          N/A|          N/A|            0|            0|            0|            0|
-| TS_dvi_rx1_pllclk2            |      5.000ns|      3.894ns|          N/A|            0|            0|         1192|            0|
+| TS_dvi_rx1_pllclk2            |      5.000ns|      4.130ns|          N/A|            0|            0|         1201|            0|
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
 
 2 constraints not met.
@@ -339,10 +342,10 @@ All signals are completely routed.
 
 WARNING:Par:283 - There are 3 loadless signals in this design. This design will cause Bitgen to issue DRC warnings.
 
-Total REAL time to PAR completion: 12 secs 
-Total CPU time to PAR completion: 12 secs 
+Total REAL time to PAR completion: 10 secs 
+Total CPU time to PAR completion: 10 secs 
 
-Peak Memory Usage:  707 MB
+Peak Memory Usage:  654 MB
 
 Placer: Placement generated during map.
 Routing: Completed - No errors found.

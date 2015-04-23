@@ -212,7 +212,7 @@ wire			conv_de;
 
 rgb2ycbcr conversion
 (
-	.clk(clk),
+	.clk(rx_pclk),
 	.ce(1'b1),
 	
 	.R(rx_red),
@@ -241,10 +241,10 @@ ycbcr_thresholding thresholding
 	.Cb(Cb),
 	.Cr(Cr),
 	
-	.Ta(8'd90),
-	.Tb(8'd140),
-	.Tc(8'd90),
-	.Td(8'd126),
+	.Ta(8'd10),
+	.Tb(8'd120),
+	.Tc(8'd120),
+	.Td(8'd200),
 	
 	.binary(binary)
 
@@ -313,9 +313,9 @@ ycbcr_thresholding thresholding
 //  assign tx_de				= de_mux[SW];
 //  assign tx_hsync			= hs_mux[SW];
 //  assign tx_vsync			= vs_mux[SW];  
-  assign tx_red			= Y;
-  assign tx_green			= Cb;
-  assign tx_blue			= Cr;
+  assign tx_red			= binary;
+  assign tx_green			= binary;
+  assign tx_blue			= binary;
   assign tx_de				= conv_de;
   assign tx_hsync			= conv_hsync;
   assign tx_vsync			= conv_vsync;  

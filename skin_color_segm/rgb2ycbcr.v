@@ -214,48 +214,26 @@ sum summ3_3 (
 
 
 //moduly opozniajace
+wire [2:0] syncs;
 delay #
 (
-	.N(1),
+	.N(3),
 	.DELAY(6)
 )
 delay_vsync
 (
-	.d(in_vsync),
+	.d({in_vsync, in_hsync, in_de}),
 	.ce(ce),
 	.clk(clk),
-	.q(out_vsync)
-);
-
-delay #
-(
-	.N(1),
-	.DELAY(6)
-)
-delay_hsync
-(
-	.d(in_hsync),
-	.ce(ce),
-	.clk(clk),
-	.q(out_hsync)
-);
-
-delay #
-(
-	.N(1),
-	.DELAY(6)
-)
-delay_de
-(
-	.d(in_de),
-	.ce(ce),
-	.clk(clk),
-	.q(out_de)
+	.q(syncs)
 );
 
 //przepisanie wynikow
 assign Y = 	sum1_3[7:0];
 assign Cb = sum2_3[7:0];
 assign Cr = sum3_3[7:0];
+assign out_de = syncs[0];
+assign out_hsync = syncs[1];
+assign out_vsync = syncs[2];
 
 endmodule

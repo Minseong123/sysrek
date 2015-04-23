@@ -278,12 +278,12 @@ ycbcr_thresholding thresholding
   wire			vs_mux	[2:0];
   
   //RGB
-  assign r_mux[0] = tx_red;
-  assign g_mux[0] = tx_green;
-  assign b_mux[0] = tx_blue;
-  assign de_mux[0] = tx_de;
-  assign hs_mux[0] = tx_hsync;
-  assign vs_mux[0] = tx_vsync;
+  assign r_mux[0] = rx_red;
+  assign g_mux[0] = rx_green;
+  assign b_mux[0] = rx_blue;
+  assign de_mux[0] = rx_de;
+  assign hs_mux[0] = rx_hsync;
+  assign vs_mux[0] = rx_vsync;
   
   // YCbCr
   assign r_mux[1] = Y;
@@ -307,12 +307,18 @@ ycbcr_thresholding thresholding
 
   assign tx_pll_reset	= rx_reset;
 // przypisanie z muxow
-  assign tx_red			= r_mux[SW];
-  assign tx_green			= g_mux[SW];
-  assign tx_blue			= b_mux[SW];
-  assign tx_de				= de_mux[SW];
-  assign tx_hsync			= hs_mux[SW];
-  assign tx_vsync			= vs_mux[SW];  
+//  assign tx_red			= r_mux[SW];
+//  assign tx_green			= g_mux[SW];
+//  assign tx_blue			= b_mux[SW];
+//  assign tx_de				= de_mux[SW];
+//  assign tx_hsync			= hs_mux[SW];
+//  assign tx_vsync			= vs_mux[SW];  
+  assign tx_red			= Y;
+  assign tx_green			= Cb;
+  assign tx_blue			= Cr;
+  assign tx_de				= conv_de;
+  assign tx_hsync			= conv_hsync;
+  assign tx_vsync			= conv_vsync;  
   
   //////////////////////////////////////////////////////////////////
   // Instantiate a dedicate PLL for output port

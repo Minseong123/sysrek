@@ -1,8 +1,8 @@
 INTSTYLE=ise
-INFILE=/home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/hdmi_main.ncd
-OUTFILE=/home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm/hdmi_main.bit
+INFILE=/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/hdmi_main.ncd
+OUTFILE=/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/hdmi_main.bit
 FAMILY=Spartan6
 PART=xc6slx45-2csg324
-WORKINGDIR=/home/lsriw/SR/Wojciech Gumula/repo/skin_color_segm
+WORKINGDIR=/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm
 LICENSE=ISE
 USER_INFO=176281944_174171439_210573127_948

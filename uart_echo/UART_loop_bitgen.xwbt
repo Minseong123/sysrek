@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=/home/vka/Programming/VHDL/workspace/sysrek/uart_echo/UART_loop.ncd
+OUTFILE=/home/vka/Programming/VHDL/workspace/sysrek/uart_echo/UART_loop.bit
+FAMILY=Spartan6
+PART=xc6slx45-2csg324
+WORKINGDIR=/home/vka/Programming/VHDL/workspace/sysrek/uart_echo
+LICENSE=ISE
+USER_INFO=176281944_174171439_210573127_948

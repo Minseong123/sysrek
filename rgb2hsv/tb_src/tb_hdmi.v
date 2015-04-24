@@ -55,65 +55,21 @@ hdmi_in file_input (
     .hdmi_g(rx_green), 
     .hdmi_b(rx_blue)
     );
+	 
 
-// proccessing 
-
-wire [7:0] 	Y;
-wire [7:0] 	Cb;
-wire [7:0] 	Cr;
-wire			conv_hsync;
-wire			conv_vsync;
-wire			conv_de;
-
-rgb2ycbcr conversion
-(
-	.clk(rx_pclk),
-	.ce(1'b1),
-	
-	.R(rx_red),
-	.G(rx_green),
-	.B(rx_blue),
-	
-	.in_hsync(rx_hsync),
-	.in_vsync(rx_vsync),
-	.in_de(rx_de),
-	
-	.Y(Y),
-	.Cb(Cb),
-	.Cr(Cr),
-	
-	.out_hsync(conv_hsync),
-	.out_vsync(conv_vsync),
-	.out_de(conv_de)
-);
-	
-wire [7:0] binary;
-
-ycbcr_thresholding thresholding
-(
-	.Y(Y),
-	.Cb(Cb),
-	.Cr(Cr),
-	
-	.Ta(8'd90),
-	.Tb(8'd140),
-	.Tc(8'd90),
-	.Td(8'd126),
-	
-	.binary(binary)
-
-);
+	 
 	 
 // --------------------------------------
 // Output assigment
 // --------------------------------------
-  
-	assign tx_de 				= conv_de;
-	assign tx_hsync 			= conv_hsync;
-	assign tx_vsync 			= conv_vsync;
-	assign tx_red         	= binary;
-	assign tx_green        	= binary;
-	assign tx_blue         	= binary;
+assign tx_de = rx_de;
+assign tx_hsync = rx_hsync;
+assign tx_vsync = rx_vsync;
+
+assign tx_red = rx_red;
+assign tx_green = rx_green;
+assign tx_blue = rx_blue;	 
+	 
 
 // --------------------------------------
 // HDMI output
@@ -124,4 +80,6 @@ hdmi_out file_output (
     .hdmi_de(tx_de), 
     .hdmi_data({8'b0,tx_red,tx_green,tx_blue})
     );
+
+
 endmodule

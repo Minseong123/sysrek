@@ -169,7 +169,7 @@ wire [9:0] v_S; //z1c8u
 wire [9:0] v_V; //z1c8u
 
 //V
-assign v_V = v_max[9:0];
+assign v_V = v_max;
 
 
 //S
@@ -189,7 +189,6 @@ div10 div_S (
 assign v_S1[1] = {1'b0, q_S[0], f_S[8:1]}; //f_S ??
 
 assign v_S = (v_max == 10'b0) ? v_S1[0] : v_S1[1];
-
 
 //H
 wire [11:0] G_sub_B;
@@ -283,11 +282,16 @@ div12 div_H (
 );
 wire signed [11:0] v_H1;
 //assign v_H1 = {q_H[11], q_H[2:0], f_H[10:3]}; //todo ??
-assign v_H1[11] = q_H[11] | f_H[10];
-assign v_H1[10] = (f_H[10] == 1'b0 & q_H[10] == 1'b0) ? 1'b0 : 1'b1;
-assign v_H1[9] = (f_H[9] == 1'b0 & q_H[9] == 1'b0) ? 1'b0 : 1'b1;
-assign v_H1[8] = (f_H[8] == 1'b0 & q_H[0] == 1'b0) ? f_H[0] : 1'b1;
-assign v_H1[7:0] = f_H[7:0];
+//assign v_H1[11] = q_H[11] | f_H[10];
+//assign v_H1[10] = (f_H[10] == 1'b0 & q_H[10] == 1'b0) ? 1'b0 : 1'b1;
+//assign v_H1[9] = (f_H[9] == 1'b0 & q_H[9] == 1'b0) ? 1'b0 : 1'b1;
+//assign v_H1[8] = (f_H[8] == 1'b0 & q_H[0] == 1'b0) ? f_H[0] : 1'b1;
+//assign v_H1[7:0] = f_H[7:0];
+assign v_H1[11] = q_H[11] | f_H[11];
+assign v_H1[10:8] = q_H[2:0];
+assign v_H1[7:0] = f_H[10:3];
+
+
 
 //dodaj stala do H
 wire signed [11:0] v_select_const_H;
@@ -327,8 +331,14 @@ div12 div_H2 (
 	.fractional(f_H2) // output [11 : 0] fractional
 );
 wire signed [9:0] v_H4;
-assign v_H4 = {q_H2[11], q_H2[0], f_H2[10:3]}; //todo ??
+//assign v_H4 = {q_H2[11], q_H2[0], f_H2[10:3]}; //todo ??
+assign v_H4[9] = q_H2[11] | f_H2[11];
+assign v_H4[8] = (f_H2[10] == 1'b0 & q_H2[0] == 1'b0) ? q_H2[0] : 1'b1;
+assign v_H4[7:0] = f_H2[10:3];
 
+//assign v_H1[11] = q_H[11] | f_H[11];
+//assign v_H1[10:8] = q_H[2:0];
+//assign v_H1[7:0] = f_H[10:3];
 //opoznij sygnaly V i S
 wire [9:0] v_H_final;
 wire [9:0] v_S_final;
@@ -363,13 +373,6 @@ delay_S
 
 assign v_H_final = v_H4;
 
-//wire [9:0] v_H_final;
-//wire [9:0] v_S_final;
-//wire [9:0] v_V_final;
-//assign v_H_final = v_H4;
-//assign v_S_final = v_S;
-//assign v_V_final = v_V;
-
 //pomnoz HSV przez 255
 wire [19:0] final_H;
 wire [19:0] final_S;
@@ -389,20 +392,21 @@ mul10 mul_final_S (
 mul10 mul_final_V (
   .clk(clk), // input clk
   .a(v_V_final), // input [9 : 0] a
-  .b(10'h0FF), // input [9 : 0] b
+  .b(10'b0011111111), // input [9 : 0] b
   .p(final_V) // output [19 : 0] p
 );
 
-assign H = final_H[17:10];
-assign S = final_S[17:10];
-assign V = final_V[17:10];
+assign H = final_H[15:8];
+assign S = final_S[15:8];
+assign V = final_V[15:8];
+
 
 //opoznij sygnaly synchronizacji
 wire [2:0] syncs;
 delay #
 (
 	.N(3),
-	.DELAY(73)
+	.DELAY(86/*??*/)
 )
 delay_sync
 (

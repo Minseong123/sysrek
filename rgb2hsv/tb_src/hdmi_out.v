@@ -36,7 +36,7 @@ begin
   if((hdmi_vs==1'b1)&&(vse==1'b0))
   begin
   
-    fm1 = $fopen({"out_",vsc[5:0]/10+8'h30,vsc[5:0]%10+8'h30,".ppm"},"wb");
+    fm1 = $fopen({"out/out_",vsc[5:0]/10+8'h30,vsc[5:0]%10+8'h30,".ppm"},"wb");
 
 	 $display("out%d.ppm saved",vsc);
 	 

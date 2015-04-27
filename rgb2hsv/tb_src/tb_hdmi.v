@@ -55,20 +55,42 @@ hdmi_in file_input (
     .hdmi_g(rx_green), 
     .hdmi_b(rx_blue)
     );
-	 
 
-	 
+wire [7:0] H;
+wire [7:0] S;
+wire [7:0] V;
+wire conv_vsync;
+wire conv_hsync;
+wire conv_de;
+// image processing
+rgb2hsv uut (
+		.clk(rx_pclk), 
+		.ce(1'b1), 
+		.R(rx_red), 
+		.G(rx_green), 
+		.B(rx_blue), 
+		.in_hsync(rx_hsync), 
+		.in_vsync(rx_vsync), 
+		.in_de(rx_de), 
+		.H(H), 
+		.S(S), 
+		.V(V), 
+		.out_hsync(conv_hsync), 
+		.out_vsync(conv_vsync), 
+		.out_de(conv_de)
+	);
+
 	 
 // --------------------------------------
 // Output assigment
 // --------------------------------------
-assign tx_de = rx_de;
-assign tx_hsync = rx_hsync;
-assign tx_vsync = rx_vsync;
+assign tx_de = conv_de;
+assign tx_hsync = conv_hsync;
+assign tx_vsync = conv_vsync;
 
-assign tx_red = rx_red;
-assign tx_green = rx_green;
-assign tx_blue = rx_blue;	 
+assign tx_red = H;
+assign tx_green = S;
+assign tx_blue = V;	 
 	 
 
 // --------------------------------------

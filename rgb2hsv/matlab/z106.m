@@ -1,10 +1,11 @@
 %% konwersja RGB na HSV
 
 %% ładowanie obrazu
-im = imread('taylor64.ppm');
+ im = imread('taylor64.ppm');
+%im(1, 1, :) = [101, 100, 101];
 
 %% skalowanie na 0-1
-im = double(im) ./ 256.0;
+im = double(im) ./ 255.0;
 
 imFI = fi(im, 1, 9, 8);
 
@@ -25,11 +26,11 @@ for i = 1:size(imFI, 1)
         
         %wartość S
         if V == 0
-            S = fi(0, 1, 8, 8);
+            S = fi(0, 1, 9, 8);
         else
             S = double(V - v_min);
             S = S / double(V);
-            S = fi(S, 1, 8, 8);
+            S = fi(S, 1, 9, 8);
         end;
         
         %wartość H

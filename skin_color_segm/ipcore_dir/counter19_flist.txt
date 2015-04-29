@@ -1,0 +1,17 @@
+# Output products list for <counter19>
+_xmsgs/pn_parser.xmsgs
+core_resources.txt
+counter19/doc/c_counter_binary_v11_0_readme.txt
+counter19/doc/c_counter_binary_v11_0_vinfo.html
+counter19/doc/ds215_counter.pdf
+counter19.asy
+counter19.gise
+counter19.ngc
+counter19.sym
+counter19.v
+counter19.veo
+counter19.xco
+counter19.xise
+counter19_flist.txt
+counter19_xmdf.tcl
+gui_latency.txt

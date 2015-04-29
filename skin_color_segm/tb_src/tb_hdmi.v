@@ -101,9 +101,60 @@ ycbcr_thresholding thresholding
 	.Td(8'd126),
 	
 	.binary(binary)
-
 );
 	 
+wire [7:0] cross_r;
+wire [7:0] cross_g;
+wire [7:0] cross_b;	 
+
+wire [9:0] centr_x;
+wire [9:0] centr_y;
+
+centroid #
+(
+	.IMG_W(64),
+	.IMG_H(64)
+)
+centro
+(
+    .clk(rx_pclk),
+    .ce(1'b1),
+    .rst(1'b0),
+    .de(conv_de),
+    .hsync(conv_hsync),
+    .vsync(conv_vsync),
+    .mask((binary == 8'hFF) ? 1'b1 : 1'b0),
+    .x(centr_x),
+    .y(centr_y)
+);
+
+reg [9:0] curr_w = 0;
+reg [9:0] curr_h = 0;
+
+always @(posedge rx_pclk)
+begin
+	if (conv_vsync == 0) begin
+		curr_w <= 0;
+		curr_h <= 0;
+	end
+	else if(conv_de == 0) begin
+		curr_w <= curr_w + 1;
+		
+		if (curr_w == 10'd63) begin
+			curr_w <= 0;
+			curr_h <= curr_h + 1;
+			
+			if (curr_h == 10'd63) begin
+				curr_h <= 0;
+			end
+		end
+	end
+end
+
+assign cross_r = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'hff : binary);
+assign cross_g = binary;
+assign cross_b = binary;
+
 // --------------------------------------
 // Output assigment
 // --------------------------------------
@@ -111,9 +162,9 @@ ycbcr_thresholding thresholding
 	assign tx_de 				= conv_de;
 	assign tx_hsync 			= conv_hsync;
 	assign tx_vsync 			= conv_vsync;
-	assign tx_red         	= binary;
-	assign tx_green        	= binary;
-	assign tx_blue         	= binary;
+	assign tx_red         	= cross_r;
+	assign tx_green        	= cross_g;
+	assign tx_blue         	= cross_b;
 
 // --------------------------------------
 // HDMI output

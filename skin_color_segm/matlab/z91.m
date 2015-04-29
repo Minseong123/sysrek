@@ -3,7 +3,7 @@
 
 %% ladowanie obrazu
 close all, clear all, clc;
-imageRGB = imread('taylor64.ppm');
+imageRGB = imread('reka.ppm');
 imshow(imageRGB)
 
 %% konwersja na YCbCr
@@ -36,10 +36,10 @@ figure, imshow((imageYCbCr));
 
 %% segmentacja obszaru twarzy
 
-Ta = 90;
-Tb = 140;
-Tc = 90;
-Td = 126;
+Ta = 120;
+Tb = 150;
+Tc = 110;
+Td = 170;
 
 imageSegm = zeros(size(imageRGB, 1), size(imageRGB, 2));
 for x = 1:size(imageYCbCr, 1)
@@ -54,7 +54,7 @@ for x = 1:size(imageYCbCr, 1)
         end 
     end 
 end
-imageSegm = 1 - imageSegm;
+% imageSegm = 1 - imageSegm;
 figure, imshow(imageSegm);
 
 %% filtracja medianowa

@@ -1,0 +1,15 @@
+# Output products list for <summator_add>
+_xmsgs/pn_parser.xmsgs
+summator_add/doc/c_addsub_v11_0_readme.txt
+summator_add/doc/c_addsub_v11_0_vinfo.html
+summator_add/doc/ds214_addsub.pdf
+summator_add.asy
+summator_add.gise
+summator_add.ngc
+summator_add.sym
+summator_add.v
+summator_add.veo
+summator_add.xco
+summator_add.xise
+summator_add_flist.txt
+summator_add_xmdf.tcl

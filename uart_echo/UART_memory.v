@@ -30,7 +30,9 @@ module UART_memory(
 	output [7:0]reg4,
 	output [7:0]reg5,
 	output [7:0]reg6,
-	output [7:0]reg7
+	output [7:0]reg7,
+	
+	output [7:0] LED
 );
 
 // number of registers in memory, should be equal or more than output registers
@@ -141,5 +143,7 @@ always @(posedge clk100) begin
 	prevTXE <= TXE;
 	prevRXNE <= RXNE;
 end
+
+assign LED = reg0;
 
 endmodule

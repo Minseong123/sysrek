@@ -1,6 +1,6 @@
 INTSTYLE=ise
-INFILE=/home/lsriw/SR/Wojciech Gumula/repo/uart_echo/UART_loop.ncd
-OUTFILE=/home/lsriw/SR/Wojciech Gumula/repo/uart_echo/UART_loop.bit
+INFILE=/home/lsriw/SR/Wojciech Gumula/repo/uart_echo/UART_memory.ncd
+OUTFILE=/home/lsriw/SR/Wojciech Gumula/repo/uart_echo/UART_memory.bit
 FAMILY=Spartan6
 PART=xc6slx45-2csg324
 WORKINGDIR=/home/lsriw/SR/Wojciech Gumula/repo/uart_echo

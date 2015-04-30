@@ -132,28 +132,6 @@ centro
 	 .c_w(curr_w)
 );
 
-
-//
-//always @(posedge rx_pclk)
-//begin
-//	if (conv_vsync == 0) begin
-//		curr_w <= 0;
-//		curr_h <= 0;
-//	end
-//	else if(conv_de == 0) begin
-//		curr_w <= curr_w + 1;
-//		
-//		if (curr_w == 10'd63) begin
-//			curr_w <= 0;
-//			curr_h <= curr_h + 1;
-//			
-//			if (curr_h == 10'd63) begin
-//				curr_h <= 0;
-//			end
-//		end
-//	end
-//end
-
 assign cross_r = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'hff : binary);
 assign cross_g = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'h0 : binary);
 assign cross_b = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'h0 : binary);

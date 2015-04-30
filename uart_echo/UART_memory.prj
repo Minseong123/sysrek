@@ -1,0 +1,3 @@
+verilog work "UART_Tx.v"
+verilog work "UART_Rx.v"
+verilog work "UART_memory.v"

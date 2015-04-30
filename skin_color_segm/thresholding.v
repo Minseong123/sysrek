@@ -29,6 +29,6 @@ module ycbcr_thresholding(
     output [7:0] binary
     );
 
-assign binary = (Ta < Cb && Cb < Tb && Tc < Cr && Cr < Td) ? 8'h0 : 8'hFF; // !!!
+assign binary = (Ta < Cb && Cb < Tb && Tc < Cr && Cr < Td) ? 8'hFF : 8'h00; // !!!
 
 endmodule

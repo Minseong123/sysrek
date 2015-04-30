@@ -32,7 +32,10 @@ module centroid #
     input vsync,
     input mask,
     output [9:0] x,
-    output [9:0] y
+    output [9:0] y,
+	 
+	 output [9:0] c_h,
+	 output [9:0] c_w
     );
 
 //implementacja licznikow
@@ -79,7 +82,7 @@ wire d_eof;
 delay #
 (
 	.DELAY(1),
-	.WIDTH(1)
+	.N(1)
 )
 delay_mask
 (
@@ -88,10 +91,11 @@ delay_mask
 	.clk(clk),
 	.q(d_mask)
 );
+
 delay #
 (
 	.DELAY(1),
-	.WIDTH(1)
+	.N(1)
 )
 delay_eof
 (
@@ -100,6 +104,7 @@ delay_eof
 	.clk(clk),
 	.q(d_eof)
 );
+
 summator sum_m10 
 (
 	.A(curr_w),
@@ -128,7 +133,7 @@ wire qv_y;
 divider_28_20 div_x
 (
 	.clk(clk),
-	.start(d_eof),
+	.start(eof),
 	.dividend({9'b0, count_m10}),
 	.divisor({1'b0, count_m00}),
 	.quotient(d_x),
@@ -150,10 +155,13 @@ reg [9:0] y_latch = 0;
 
 always @(posedge clk)
 begin
-	if(qv_x) x_latch = d_x[9:0];
-	if(qv_y) y_latch = d_y[9:0];
+	if(qv_x & d_eof) x_latch = d_x[9:0];
+	if(qv_y & d_eof) y_latch = d_y[9:0];
 end
 
 assign x = x_latch;
 assign y = y_latch;
+
+assign c_h = curr_h;
+assign c_w = curr_w;
 endmodule

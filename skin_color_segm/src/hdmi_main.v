@@ -250,6 +250,39 @@ ycbcr_thresholding thresholding
 
 );
 
+wire [7:0] cross_r;
+wire [7:0] cross_g;
+wire [7:0] cross_b;	 
+
+wire [9:0] centr_x;
+wire [9:0] centr_y;
+wire [9:0] curr_w;
+wire [9:0] curr_h;
+centroid #
+(
+	.IMG_W(64),
+	.IMG_H(64)
+)
+centro
+(
+    .clk(rx_pclk),
+    .ce(1'b1),
+    .rst(1'b0),
+    .de(conv_de),
+    .hsync(conv_hsync),
+    .vsync(conv_vsync),
+    .mask((binary == 8'hFF) ? 1'b1 : 1'b0),
+    .x(centr_x),
+    .y(centr_y),
+	 
+	 .c_h(curr_h),
+	 .c_w(curr_w)
+);
+assign cross_r = ((curr_w == centr_x || curr_h == centr_y) ? 8'hff : binary);
+assign cross_g = ((curr_w == centr_x || curr_h == centr_y) ? 8'h0 : binary);
+assign cross_b = ((curr_w == centr_x || curr_h == centr_y) ? 8'h0 : binary);
+
+
   // -----------------------------------------------------------------------------
   // HDMI output port 
   // -----------------------------------------------------------------------------  
@@ -270,12 +303,12 @@ ycbcr_thresholding thresholding
   // umozliwiajacego wyswietlanie roznych wyjsc
   // w zaleznosci od wartosci SW
   
-  wire [7:0] 	r_mux 	[2:0];
-  wire [7:0] 	g_mux 	[2:0];
-  wire [7:0] 	b_mux 	[2:0];
-  wire			de_mux	[2:0];
-  wire			hs_mux	[2:0];
-  wire			vs_mux	[2:0];
+  wire [7:0] 	r_mux 	[3:0];
+  wire [7:0] 	g_mux 	[3:0];
+  wire [7:0] 	b_mux 	[3:0];
+  wire			de_mux	[3:0];
+  wire			hs_mux	[3:0];
+  wire			vs_mux	[3:0];
   
   //RGB
   assign r_mux[0] = rx_red;
@@ -301,6 +334,14 @@ ycbcr_thresholding thresholding
   assign hs_mux[2] = conv_hsync;
   assign vs_mux[2] = conv_vsync; 
   
+  //centroid
+  assign r_mux[3] = cross_r;
+  assign g_mux[3] = cross_g;
+  assign b_mux[3] = cross_b;
+  assign de_mux[3] = conv_de;
+  assign hs_mux[3] = conv_hsync;
+  assign vs_mux[3] = conv_vsync; 
+  
   // -----------------------------------------------------------------------------
   // HDMI output port signal assigments 
   // -----------------------------------------------------------------------------  
@@ -313,12 +354,12 @@ ycbcr_thresholding thresholding
 //  assign tx_de				= de_mux[SW];
 //  assign tx_hsync			= hs_mux[SW];
 //  assign tx_vsync			= vs_mux[SW];  
-  assign tx_red			= binary;
-  assign tx_green			= binary;
-  assign tx_blue			= binary;
-  assign tx_de				= conv_de;
-  assign tx_hsync			= conv_hsync;
-  assign tx_vsync			= conv_vsync;  
+  assign tx_red			= r_mux[SW];
+  assign tx_green			= g_mux[SW];
+  assign tx_blue			= b_mux[SW];
+  assign tx_de				= de_mux[SW];
+  assign tx_hsync			= hs_mux[SW];
+  assign tx_vsync			= vs_mux[SW];  
   
   //////////////////////////////////////////////////////////////////
   // Instantiate a dedicate PLL for output port

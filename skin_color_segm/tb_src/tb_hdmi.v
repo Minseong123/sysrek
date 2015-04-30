@@ -109,7 +109,8 @@ wire [7:0] cross_b;
 
 wire [9:0] centr_x;
 wire [9:0] centr_y;
-
+wire [9:0] curr_w;
+wire [9:0] curr_h;
 centroid #
 (
 	.IMG_W(64),
@@ -125,35 +126,37 @@ centro
     .vsync(conv_vsync),
     .mask((binary == 8'hFF) ? 1'b1 : 1'b0),
     .x(centr_x),
-    .y(centr_y)
+    .y(centr_y),
+	 
+	 .c_h(curr_h),
+	 .c_w(curr_w)
 );
 
-reg [9:0] curr_w = 0;
-reg [9:0] curr_h = 0;
 
-always @(posedge rx_pclk)
-begin
-	if (conv_vsync == 0) begin
-		curr_w <= 0;
-		curr_h <= 0;
-	end
-	else if(conv_de == 0) begin
-		curr_w <= curr_w + 1;
-		
-		if (curr_w == 10'd63) begin
-			curr_w <= 0;
-			curr_h <= curr_h + 1;
-			
-			if (curr_h == 10'd63) begin
-				curr_h <= 0;
-			end
-		end
-	end
-end
+//
+//always @(posedge rx_pclk)
+//begin
+//	if (conv_vsync == 0) begin
+//		curr_w <= 0;
+//		curr_h <= 0;
+//	end
+//	else if(conv_de == 0) begin
+//		curr_w <= curr_w + 1;
+//		
+//		if (curr_w == 10'd63) begin
+//			curr_w <= 0;
+//			curr_h <= curr_h + 1;
+//			
+//			if (curr_h == 10'd63) begin
+//				curr_h <= 0;
+//			end
+//		end
+//	end
+//end
 
 assign cross_r = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'hff : binary);
-assign cross_g = binary;
-assign cross_b = binary;
+assign cross_g = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'h0 : binary);
+assign cross_b = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'h0 : binary);
 
 // --------------------------------------
 // Output assigment

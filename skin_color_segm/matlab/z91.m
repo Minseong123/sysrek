@@ -3,7 +3,7 @@
 
 %% ladowanie obrazu
 close all, clear all, clc;
-imageRGB = imread('reka.ppm');
+imageRGB = imread('reka64.ppm');
 imshow(imageRGB)
 
 %% konwersja na YCbCr
@@ -54,7 +54,7 @@ for x = 1:size(imageYCbCr, 1)
         end 
     end 
 end
-% imageSegm = 1 - imageSegm;
+imageSegm = 1 - imageSegm;
 figure, imshow(imageSegm);
 
 %% filtracja medianowa

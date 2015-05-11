@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: Wojtek Gumua
 // 
-// Create Date:    12:45:08 04/26/2015 
+// Create Date:    21:20:55 05/11/2015 
 // Design Name: 
-// Module Name:    centroid 
+// Module Name:    circle 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module centroid #
+module circle #
 (
 	parameter [9:0] IMG_W = 720,
 	parameter [9:0] IMG_H = 576
@@ -31,8 +31,10 @@ module centroid #
     input hsync,
     input vsync,
     input mask,
+	 
     output [9:0] x,
     output [9:0] y,
+	 output inside_circle,
 	 
 	 output [9:0] c_h,
 	 output [9:0] c_w
@@ -172,6 +174,10 @@ begin
 	if(qv_x) x_latch = d_x[9:0];
 	if(qv_y) y_latch = d_y[9:0];
 end
+
+//wyznacz czy wewnatrz kola
+
+assign inside_circle = (((x_latch - curr_w) ** 2 + (y_latch - curr_h) ** 2) <= 16) ? 1'b1 : 1'b0;
 
 assign x = x_latch;
 assign y = y_latch;

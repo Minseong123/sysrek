@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module tb_hdmi(
+module tb_centro(
     );
 	 
 
@@ -57,94 +57,70 @@ hdmi_in file_input (
     );
 
 // proccessing 
-
-wire [7:0] 	Y;
-wire [7:0] 	Cb;
-wire [7:0] 	Cr;
-wire			conv_hsync;
-wire			conv_vsync;
-wire			conv_de;
-
-rgb2ycbcr conversion
-(
-	.clk(rx_pclk),
-	.ce(1'b1),
-	
-	.R(rx_red),
-	.G(rx_green),
-	.B(rx_blue),
-	
-	.in_hsync(rx_hsync),
-	.in_vsync(rx_vsync),
-	.in_de(rx_de),
-	
-	.Y(Y),
-	.Cb(Cb),
-	.Cr(Cr),
-	
-	.out_hsync(conv_hsync),
-	.out_vsync(conv_vsync),
-	.out_de(conv_de)
-);
-	
-wire [7:0] binary;
-
-ycbcr_thresholding thresholding
-(
-	.Y(Y),
-	.Cb(Cb),
-	.Cr(Cr),
-	
-	.Ta(8'd90),
-	.Tb(8'd140),
-	.Tc(8'd90),
-	.Td(8'd126),
-	
-	.binary(binary)
-);
 	 
-wire [7:0] cross_r;
-wire [7:0] cross_g;
-wire [7:0] cross_b;	 
+reg [7:0] cross_r;
+reg [7:0] cross_g;
+reg [7:0] cross_b;	 
 
-//wire [9:0] centr_x;
-//wire [9:0] centr_y;
-wire [9:0] curr_w;
+wire [9:0] centr_x;
+wire [9:0] centr_y;
 wire [9:0] curr_h;
-//centroid #
-//(
-//	.IMG_W(64),
-//	.IMG_H(64)
-//)
-//centro
-//(
-//    .clk(rx_pclk),
-//    .ce(1'b1),
-//    .rst(1'b0),
-//    .de(conv_de),
-//    .hsync(conv_hsync),
-//    .vsync(conv_vsync),
-//    .mask((binary == 8'hFF) ? 1'b0 : 1'b1),
-//    .x(centr_x),
-//    .y(centr_y),
-//	 
-//	 .c_h(curr_h),
-//	 .c_w(curr_w)
-//);
-reg [9:0] centr_x = 10'd20;
-reg [9:0] centr_y = 10'd30;
+wire [9:0] curr_w;
+//reg [9:0] curr_w = 0;
+//reg [9:0] curr_h = 0;
+//
+//always @(posedge rx_pclk)
+//begin
+//	if (rx_vsync == 0) begin
+//		curr_w <= 0;
+//		curr_h <= 0;
+//	end
+//	else if(rx_de == 0) begin
+//		curr_w <= curr_w + 1;
+//		
+//		if (curr_w == 10'd63) begin
+//			curr_w <= 0;
+//			curr_h <= curr_h + 1;
+//			
+//			if (curr_h == 10'd63) begin
+//				curr_h <= 0;
+//			end
+//		end
+//	end
+//end
+centroid #
+(
+	.IMG_W(64),
+	.IMG_H(64)
+)
+centro
+(
+    .clk(rx_pclk),
+    .ce(1'b1),
+    .rst(1'b0),
+    .de(rx_de),
+    .hsync(rx_hsync),
+    .vsync(rx_vsync),
+    .mask((rx_red == 8'hFF) ? 1'b1 : 1'b0),
+    .x(centr_x),
+    .y(centr_y),
+	 
+	 .c_h(curr_h),
+	 .c_w(curr_w)
+);
 
-assign cross_r = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'hff : binary);
-assign cross_g = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'h0 : binary);
-assign cross_b = ((curr_w[9:0] == centr_x || curr_h[9:0] == centr_y) ? 8'h0 : binary);
-
+always @(posedge rx_pclk) begin
+	cross_r = ((curr_h[9:0] == centr_y || curr_w == centr_x) ? 8'hFF : rx_red);
+	cross_g = ((curr_h[9:0] == centr_y || curr_w == centr_x) ? 8'h00 : rx_red);
+	cross_b = ((curr_h[9:0] == centr_y || curr_w == centr_x) ? 8'h00 : rx_red);
+end
 // --------------------------------------
 // Output assigment
 // --------------------------------------
   
-	assign tx_de 				= conv_de;
-	assign tx_hsync 			= conv_hsync;
-	assign tx_vsync 			= conv_vsync;
+	assign tx_de 				= rx_de;
+	assign tx_hsync 			= rx_hsync;
+	assign tx_vsync 			= rx_vsync;
 	assign tx_red         	= cross_r;
 	assign tx_green        	= cross_g;
 	assign tx_blue         	= cross_b;

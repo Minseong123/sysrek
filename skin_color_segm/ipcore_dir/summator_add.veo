@@ -58,8 +58,7 @@
 summator_add your_instance_name (
   .a(a), // input [18 : 0] a
   .b(b), // input [9 : 0] b
-  .clk(clk), // input clk
-  .ce(ce), // input ce
+  .sclr(sclr), // input sclr
   .s(s) // output [18 : 0] s
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------

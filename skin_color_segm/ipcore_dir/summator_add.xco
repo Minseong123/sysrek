@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Wed Apr 29 17:54:41 2015
+# Date: Sun May 10 11:53:44 2015
 #
 ##############################################################
 #
@@ -53,13 +53,13 @@ CSET bypass_ce_priority=CE_Overrides_Bypass
 CSET bypass_sense=Active_High
 CSET c_in=false
 CSET c_out=false
-CSET ce=true
+CSET ce=false
 CSET component_name=summator_add
 CSET implementation=Fabric
-CSET latency=3
-CSET latency_configuration=Automatic
+CSET latency=0
+CSET latency_configuration=Manual
 CSET out_width=19
-CSET sclr=false
+CSET sclr=true
 CSET sinit=false
 CSET sinit_value=0
 CSET sset=false
@@ -70,4 +70,4 @@ CSET sync_ctrl_priority=Reset_Overrides_Set
 MISC pkg_timestamp=2013-07-22T10:35:41Z
 # END Extra information
 GENERATE
-# CRC:  714dc40
+# CRC: 50372825

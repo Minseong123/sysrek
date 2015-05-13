@@ -50,6 +50,7 @@ reg [9:0] min_y = IMG_H;
 reg [9:0] max_y = 0;
 wire eof;
 wire p_vsync;
+reg is_valid = 0;
 
 delay #
 (
@@ -64,12 +65,11 @@ delay_vsync
 	.q(p_vsync)
 );
 
-
 always @(posedge clk)
 begin
 	if (vsync == 0) begin
-		curr_w = 0;
-		curr_h = 0;
+		curr_w <= 0;
+		curr_h <= 0;
 	end
 	else if(de == 1) begin
 		curr_w <= curr_w + 1;
@@ -84,17 +84,16 @@ begin
 		end
 	end
 end
-reg is_valid = 0;
-always @(posedge clk)
-begin
-	if(curr_w > 0 && curr_h > 0 && curr_w < IMG_W - 1 && curr_h < IMG_H - 1) is_valid = 1;
-	else is_valid = 0;
-	
-	if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && min_x > curr_w) min_x = curr_w;
-	if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && max_x < curr_w) max_x = curr_w;
-	if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && min_y > curr_h) min_y = curr_h;
-	if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && max_y < curr_h) max_y = curr_h;
-end
+//always @(posedge clk)
+//begin
+//	if(curr_w > 0 && curr_h > 0 && curr_w < IMG_W - 1 && curr_h < IMG_H - 1) is_valid = 1;
+//	else is_valid = 0;
+//	
+//	if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && min_x > curr_w) min_x = curr_w;
+//	if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && max_x < curr_w) max_x = curr_w;
+//	if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && min_y > curr_h) min_y = curr_h;
+//	if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && max_y < curr_h) max_y = curr_h;
+//end
 
 assign eof = (p_vsync == 1'b1 && vsync == 1'b0) ? 1'b1 : 1'b0;
 
@@ -118,6 +117,16 @@ begin
 		
 		min_y = IMG_H;
 		max_y = 0;
+	end
+	else
+	begin
+		if(curr_w > 0 && curr_h > 0 && curr_w < IMG_W - 1 && curr_h < IMG_H - 1) is_valid = 1;
+		else is_valid = 0;
+		
+		if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && min_x > curr_w) min_x = curr_w;
+		if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && max_x < curr_w) max_x = curr_w;
+		if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && min_y > curr_h) min_y = curr_h;
+		if(is_valid == 1 && de == 1 && vsync == 1 && mask == 1'b1 && max_y < curr_h) max_y = curr_h;
 	end
 end
 

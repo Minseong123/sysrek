@@ -66,28 +66,7 @@ wire [9:0] centr_x;
 wire [9:0] centr_y;
 wire [9:0] curr_h;
 wire [9:0] curr_w;
-//reg [9:0] curr_w = 0;
-//reg [9:0] curr_h = 0;
-//
-//always @(posedge rx_pclk)
-//begin
-//	if (rx_vsync == 0) begin
-//		curr_w <= 0;
-//		curr_h <= 0;
-//	end
-//	else if(rx_de == 0) begin
-//		curr_w <= curr_w + 1;
-//		
-//		if (curr_w == 10'd63) begin
-//			curr_w <= 0;
-//			curr_h <= curr_h + 1;
-//			
-//			if (curr_h == 10'd63) begin
-//				curr_h <= 0;
-//			end
-//		end
-//	end
-//end
+
 centroid #
 (
 	.IMG_W(64),

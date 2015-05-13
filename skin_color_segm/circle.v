@@ -62,8 +62,8 @@ delay_vsync
 always @(posedge clk)
 begin
 	if (vsync == 0) begin
-		curr_w = 0;
-		curr_h = 0;
+		curr_w <= 0;
+		curr_h <= 0;
 	end
 	else if(de == 1) begin
 		curr_w <= curr_w + 1;
@@ -177,7 +177,7 @@ end
 
 //wyznacz czy wewnatrz kola
 
-assign inside_circle = (((x_latch - curr_w) ** 2 + (y_latch - curr_h) ** 2) <= 16) ? 1'b1 : 1'b0;
+assign inside_circle = (((x_latch - curr_w) * (x_latch - curr_w) + (y_latch - curr_h) * (y_latch - curr_h)) < 50) ? 1'b1 : 1'b0;
 
 assign x = x_latch;
 assign y = y_latch;

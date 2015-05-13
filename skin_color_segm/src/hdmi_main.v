@@ -250,18 +250,20 @@ ycbcr_thresholding thresholding
 
 );
 
-wire [7:0] cross_r;
-wire [7:0] cross_g;
-wire [7:0] cross_b;	 
+//centroid
+reg [7:0] cross_r;
+reg [7:0] cross_g;
+reg [7:0] cross_b;	 
 
 wire [9:0] centr_x;
 wire [9:0] centr_y;
-wire [9:0] curr_w;
-wire [9:0] curr_h;
+wire [9:0] centr_curr_w;
+wire [9:0] centr_curr_h;
+
 centroid #
 (
-	.IMG_W(64),
-	.IMG_H(64)
+	.IMG_W(720),
+	.IMG_H(576)
 )
 centro
 (
@@ -275,14 +277,100 @@ centro
     .x(centr_x),
     .y(centr_y),
 	 
-	 .c_h(curr_h),
-	 .c_w(curr_w)
+	 .c_h(centr_curr_h),
+	 .c_w(centr_curr_w)
 );
-assign cross_r = ((curr_w == centr_x || curr_h == centr_y) ? 8'hff : binary);
-assign cross_g = ((curr_w == centr_x || curr_h == centr_y) ? 8'h0 : binary);
-assign cross_b = ((curr_w == centr_x || curr_h == centr_y) ? 8'h0 : binary);
+always @(posedge rx_pclk) begin
+	cross_r = ((centr_curr_h[9:0] == centr_y || centr_curr_w == centr_x) ? 8'hFF : binary);
+	cross_g = ((centr_curr_h[9:0] == centr_y || centr_curr_w == centr_x) ? 8'h00 : binary);
+	cross_b = ((centr_curr_h[9:0] == centr_y || centr_curr_w == centr_x) ? 8'h00 : binary);
+end
+
+//bounding box
+reg [7:0] bbox_r;
+reg [7:0] bbox_g;
+reg [7:0] bbox_b;	 
+
+wire [9:0] bbox_x_min;
+wire [9:0] bbox_y_min;
+wire [9:0] bbox_x_max;
+wire [9:0] bbox_y_max;
+wire [9:0] bbox_curr_h;
+wire [9:0] bbox_curr_w;
+bounding_box #
+(
+	.IMG_W(720),
+	.IMG_H(576)
+)
+box
+(
+    .clk(rx_pclk),
+    .ce(1'b1),
+    .rst(1'b0),
+    .de(rx_de),
+    .hsync(rx_hsync),
+    .vsync(rx_vsync),
+    .mask((binary == 8'hFF) ? 1'b1 : 1'b0),
+    .x_min(bbox_x_min),
+    .y_min(bbox_y_min),
+	 .x_max(bbox_x_max),
+    .y_max(bbox_y_max),
+	 
+	 .c_h(bbox_curr_h),
+	 .c_w(bbox_curr_w)
+);
+reg bbox_on_border = 0;
 
 
+always @(posedge rx_pclk) begin
+	if((bbox_curr_h >= bbox_y_min && bbox_curr_h <= bbox_y_max) && (bbox_curr_w == bbox_x_min || bbox_curr_w == bbox_x_max)) bbox_on_border = 1;
+	else if((bbox_curr_w >= bbox_x_min && bbox_curr_w <= bbox_x_max) && (bbox_curr_h == bbox_y_min || bbox_curr_h == bbox_y_max)) bbox_on_border = 1;
+	else bbox_on_border = 0;
+
+	bbox_r = ((bbox_on_border == 1'b1) ? 8'hFF : binary);
+	bbox_g = ((bbox_on_border == 1'b1) ? 8'h00 : binary);
+	bbox_b = ((bbox_on_border == 1'b1) ? 8'h00 : binary);
+end
+
+//circle
+reg [7:0] circle_r;
+reg [7:0] circle_g;
+reg [7:0] circle_b;	 
+
+wire [9:0] circle_x;
+wire [9:0] circle_y;
+wire [9:0] circle_curr_h;
+wire [9:0] circle_curr_w;
+
+wire inside_circle;
+
+circle #
+(
+	.IMG_W(720),
+	.IMG_H(576)
+)
+circ
+(
+    .clk(rx_pclk),
+    .ce(1'b1),
+    .rst(1'b0),
+    .de(rx_de),
+    .hsync(rx_hsync),
+    .vsync(rx_vsync),
+    .mask((binary == 8'hFF) ? 1'b1 : 1'b0),
+    .x(circle_x),
+    .y(circle_y),
+	 .inside_circle(inside_circle),
+	 
+	 .c_h(circle_curr_h),
+	 .c_w(circle_curr_w)
+);
+
+always @(posedge rx_pclk) begin
+	circle_r = ((inside_circle == 1'b1) ? 8'hFF : binary);
+	circle_g = ((inside_circle == 1'b1) ? 8'h00 : binary);
+	circle_b = ((inside_circle == 1'b1) ? 8'h00 : binary);
+end
   // -----------------------------------------------------------------------------
   // HDMI output port 
   // -----------------------------------------------------------------------------  
@@ -303,12 +391,12 @@ assign cross_b = ((curr_w == centr_x || curr_h == centr_y) ? 8'h0 : binary);
   // umozliwiajacego wyswietlanie roznych wyjsc
   // w zaleznosci od wartosci SW
   
-  wire [7:0] 	r_mux 	[3:0];
-  wire [7:0] 	g_mux 	[3:0];
-  wire [7:0] 	b_mux 	[3:0];
-  wire			de_mux	[3:0];
-  wire			hs_mux	[3:0];
-  wire			vs_mux	[3:0];
+  wire [7:0] 	r_mux 	[5:0];
+  wire [7:0] 	g_mux 	[5:0];
+  wire [7:0] 	b_mux 	[5:0];
+  wire			de_mux	[5:0];
+  wire			hs_mux	[5:0];
+  wire			vs_mux	[5:0];
   
   //RGB
   assign r_mux[0] = rx_red;
@@ -342,18 +430,28 @@ assign cross_b = ((curr_w == centr_x || curr_h == centr_y) ? 8'h0 : binary);
   assign hs_mux[3] = conv_hsync;
   assign vs_mux[3] = conv_vsync; 
   
+  //bounding_box
+  assign r_mux[4] = bbox_r;
+  assign g_mux[4] = bbox_g;
+  assign b_mux[4] = bbox_b;
+  assign de_mux[4] = conv_de;
+  assign hs_mux[4] = conv_hsync;
+  assign vs_mux[4] = conv_vsync; 
+
+  //circle
+  assign r_mux[5] = circle_r;
+  assign g_mux[5] = circle_g;
+  assign b_mux[5] = circle_b;
+  assign de_mux[5] = conv_de;
+  assign hs_mux[5] = conv_hsync;
+  assign vs_mux[5] = conv_vsync; 
+
   // -----------------------------------------------------------------------------
   // HDMI output port signal assigments 
   // -----------------------------------------------------------------------------  
 
   assign tx_pll_reset	= rx_reset;
 // przypisanie z muxow
-//  assign tx_red			= r_mux[SW];
-//  assign tx_green			= g_mux[SW];
-//  assign tx_blue			= b_mux[SW];
-//  assign tx_de				= de_mux[SW];
-//  assign tx_hsync			= hs_mux[SW];
-//  assign tx_vsync			= vs_mux[SW];  
   assign tx_red			= r_mux[SW];
   assign tx_green			= g_mux[SW];
   assign tx_blue			= b_mux[SW];

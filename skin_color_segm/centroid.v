@@ -60,8 +60,8 @@ delay_vsync
 always @(posedge clk)
 begin
 	if (vsync == 0) begin
-		curr_w = 0;
-		curr_h = 0;
+		curr_w <= 0;
+		curr_h <= 0;
 	end
 	else if(de == 1) begin
 		curr_w <= curr_w + 1;

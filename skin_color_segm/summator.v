@@ -32,15 +32,15 @@ module summator(
     input ce,
     input rst,
 	 
-	 output [18:0] Y
+	 output [27:0] Y
     );
-reg [18:0] sum = 19'b0;
-wire [18:0] new_sum;
+reg [27:0] sum = 28'b0;
+wire [27:0] new_sum;
 reg [9:0] tmp = 10'b0;
 
 always @(posedge clk)
 begin
-	if(rst) 	sum = 19'b0;
+	if(rst) 	sum = 28'b0;
 	else 		sum = new_sum;
 //	if(ce) tmp = A;
 //	else tmp = 10'b0;

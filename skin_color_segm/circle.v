@@ -82,14 +82,14 @@ end
 assign eof = (p_vsync == 1'b1 && vsync == 1'b0) ? 1'b1 : 1'b0;
 
 //wyliczanie m00
-reg [18:0] count_m00 = 0;
-wire [18:0] count_m10;
-wire [18:0] count_m01;
+reg [27:0] count_m00 = 0;
+wire [27:0] count_m10;
+wire [27:0] count_m01;
 
 always @(posedge clk)
 begin
 	if(eof) count_m00 <= 0;
-	else count_m00 <= count_m00 + (mask ? 19'd1 : 19'd0);
+	else count_m00 <= count_m00 + ((mask && de) ? 28'd1 : 2'd0);
 end
 
 wire d_mask;
@@ -125,8 +125,8 @@ summator sum_m10
 (
 	.A(curr_w),
 	.clk(clk),
-	.ce(d_mask),
-	.rst(d_eof),
+	.ce((mask && de)),
+	.rst(eof),
 	
 	.Y(count_m10)
 );
@@ -135,8 +135,8 @@ summator sum_m01
 (
 	.A(curr_h),
 	.clk(clk),
-	.ce(d_mask),
-	.rst(d_eof),
+	.ce((mask && de)),
+	.rst(eof),
 	
 	.Y(count_m01)
 );
@@ -150,8 +150,8 @@ divider_28_20 div_x
 (
 	.clk(clk),
 	.start(eof),
-	.dividend({9'b0, count_m10}),
-	.divisor({1'b0, count_m00}),
+	.dividend({count_m10}),
+	.divisor({count_m00}),
 	.quotient(d_x),
 	.qv(qv_x)
 );
@@ -160,8 +160,8 @@ divider_28_20 div_y
 (
 	.clk(clk),
 	.start(eof),
-	.dividend({9'b0, count_m01}),
-	.divisor({1'b0, count_m00}),
+	.dividend({count_m01}),
+	.divisor({count_m00}),
 	.quotient(d_y),
 	.qv(qv_y)
 );

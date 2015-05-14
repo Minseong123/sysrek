@@ -56,10 +56,10 @@
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 summator_add your_instance_name (
-  .a(a), // input [18 : 0] a
+  .a(a), // input [27 : 0] a
   .b(b), // input [9 : 0] b
   .sclr(sclr), // input sclr
-  .s(s) // output [18 : 0] s
+  .s(s) // output [27 : 0] s
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

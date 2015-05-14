@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Sun May 10 11:53:44 2015
+# Date: Thu May 14 16:24:02 2015
 #
 ##############################################################
 #
@@ -40,7 +40,7 @@ SELECT Adder_Subtracter xilinx.com:ip:c_addsub:11.0
 # END Select
 # BEGIN Parameters
 CSET a_type=Unsigned
-CSET a_width=19
+CSET a_width=28
 CSET add_mode=Add
 CSET ainit_value=0
 CSET b_constant=false
@@ -58,7 +58,7 @@ CSET component_name=summator_add
 CSET implementation=Fabric
 CSET latency=0
 CSET latency_configuration=Manual
-CSET out_width=19
+CSET out_width=28
 CSET sclr=true
 CSET sinit=false
 CSET sinit_value=0
@@ -70,4 +70,4 @@ CSET sync_ctrl_priority=Reset_Overrides_Set
 MISC pkg_timestamp=2013-07-22T10:35:41Z
 # END Extra information
 GENERATE
-# CRC: 50372825
+# CRC: f8b003ac

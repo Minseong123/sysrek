@@ -241,7 +241,7 @@ ycbcr_thresholding thresholding
 	.Cb(Cb),
 	.Cr(Cr),
 	
-	.Ta(8'd10),
+	.Ta(8'd40),
 	.Tb(8'd120),
 	.Tc(8'd120),
 	.Td(8'd200),
@@ -251,9 +251,9 @@ ycbcr_thresholding thresholding
 );
 
 //centroid
-reg [7:0] cross_r;
-reg [7:0] cross_g;
-reg [7:0] cross_b;	 
+wire [7:0] cross_r;
+wire [7:0] cross_g;
+wire [7:0] cross_b;	 
 
 wire [9:0] centr_x;
 wire [9:0] centr_y;
@@ -280,16 +280,15 @@ centro
 	 .c_h(centr_curr_h),
 	 .c_w(centr_curr_w)
 );
-always @(posedge rx_pclk) begin
-	cross_r = ((centr_curr_h[9:0] == centr_y || centr_curr_w == centr_x) ? 8'hFF : binary);
-	cross_g = ((centr_curr_h[9:0] == centr_y || centr_curr_w == centr_x) ? 8'h00 : binary);
-	cross_b = ((centr_curr_h[9:0] == centr_y || centr_curr_w == centr_x) ? 8'h00 : binary);
-end
+
+assign cross_r = ((centr_curr_h == centr_y || centr_curr_w == centr_x) ? 8'hFF : binary);
+assign cross_g = ((centr_curr_h == centr_y || centr_curr_w == centr_x) ? 8'h00 : binary);
+assign cross_b = ((centr_curr_h == centr_y || centr_curr_w == centr_x) ? 8'h00 : binary);
 
 //bounding box
-reg [7:0] bbox_r;
-reg [7:0] bbox_g;
-reg [7:0] bbox_b;	 
+wire [7:0] bbox_r;
+wire [7:0] bbox_g;
+wire [7:0] bbox_b;	 
 
 wire [9:0] bbox_x_min;
 wire [9:0] bbox_y_min;
@@ -297,6 +296,8 @@ wire [9:0] bbox_x_max;
 wire [9:0] bbox_y_max;
 wire [9:0] bbox_curr_h;
 wire [9:0] bbox_curr_w;
+wire bbox_on_border;
+
 bounding_box #
 (
 	.IMG_W(720),
@@ -317,25 +318,19 @@ box
     .y_max(bbox_y_max),
 	 
 	 .c_h(bbox_curr_h),
-	 .c_w(bbox_curr_w)
+	 .c_w(bbox_curr_w),
+	 
+	 .on_border(bbox_on_border)
 );
-reg bbox_on_border = 0;
 
-
-always @(posedge rx_pclk) begin
-	if((bbox_curr_h >= bbox_y_min && bbox_curr_h <= bbox_y_max) && (bbox_curr_w == bbox_x_min || bbox_curr_w == bbox_x_max)) bbox_on_border = 1;
-	else if((bbox_curr_w >= bbox_x_min && bbox_curr_w <= bbox_x_max) && (bbox_curr_h == bbox_y_min || bbox_curr_h == bbox_y_max)) bbox_on_border = 1;
-	else bbox_on_border = 0;
-
-	bbox_r = ((bbox_on_border == 1'b1) ? 8'hFF : binary);
-	bbox_g = ((bbox_on_border == 1'b1) ? 8'h00 : binary);
-	bbox_b = ((bbox_on_border == 1'b1) ? 8'h00 : binary);
-end
+assign bbox_r = ((bbox_on_border == 1'b1) ? 8'hFF : binary);
+assign bbox_g = ((bbox_on_border == 1'b1) ? 8'h00 : binary);
+assign bbox_b = ((bbox_on_border == 1'b1) ? 8'h00 : binary);
 
 //circle
-reg [7:0] circle_r;
-reg [7:0] circle_g;
-reg [7:0] circle_b;	 
+wire [7:0] circle_r;
+wire [7:0] circle_g;
+wire [7:0] circle_b;	 
 
 wire [9:0] circle_x;
 wire [9:0] circle_y;
@@ -366,11 +361,10 @@ circ
 	 .c_w(circle_curr_w)
 );
 
-always @(posedge rx_pclk) begin
-	circle_r = ((inside_circle == 1'b1) ? 8'hFF : binary);
-	circle_g = ((inside_circle == 1'b1) ? 8'h00 : binary);
-	circle_b = ((inside_circle == 1'b1) ? 8'h00 : binary);
-end
+assign circle_r = ((inside_circle == 1'b1) ? 8'hFF : binary);
+assign circle_g = ((inside_circle == 1'b1) ? 8'h00 : binary);
+assign circle_b = ((inside_circle == 1'b1) ? 8'h00 : binary);
+
   // -----------------------------------------------------------------------------
   // HDMI output port 
   // -----------------------------------------------------------------------------  

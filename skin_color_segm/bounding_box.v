@@ -38,7 +38,9 @@ module bounding_box #
     output [9:0] y_max,
 	 
 	 output [9:0] c_h,
-	 output [9:0] c_w
+	 output [9:0] c_w,
+	 
+	 output on_border
     );
 
 //implementacja licznikow
@@ -130,6 +132,13 @@ begin
 	end
 end
 
+reg bbox_on_border = 0;
+always @(posedge clk)
+begin
+	if((curr_h >= min_y_latch && curr_h <= max_y_latch) && (curr_w == min_x_latch || curr_w == max_x_latch)) bbox_on_border = 1;
+	else if((curr_w >= min_x_latch && curr_w <= max_x_latch) && (curr_h == min_y_latch || curr_h == max_y_latch)) bbox_on_border = 1;
+	else bbox_on_border = 0;
+end
 assign x_min = min_x_latch;
 assign x_max = max_x_latch;
 assign y_min = min_y_latch;
@@ -137,4 +146,6 @@ assign y_max = max_y_latch;
 
 assign c_h = curr_h;
 assign c_w = curr_w;
+
+assign on_border = bbox_on_border;
 endmodule

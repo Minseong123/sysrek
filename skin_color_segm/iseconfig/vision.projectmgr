@@ -21,7 +21,6 @@
          <ClosedNode>/hdmi_main |home|lsriw|SR|Wojciech Gumula|repo|skin_color_segm|src|hdmi_main.v/conversion - rgb2ycbcr</ClosedNode>
          <ClosedNode>/hdmi_main |home|lsriw|SR|Wojciech Gumula|repo|skin_color_segm|src|hdmi_main.v/dvi_rx1 - dvi_decoder</ClosedNode>
          <ClosedNode>/hdmi_main |home|lsriw|SR|Wojciech Gumula|repo|skin_color_segm|src|hdmi_main.v/dvi_tx - dvi_encoder_top</ClosedNode>
-         <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/box - bounding_box</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/centro - centroid</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/centro - centroid/delay_eof - delay</ClosedNode>
@@ -30,6 +29,7 @@
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/centro - centroid/div_y - divider_28_20</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/centro - centroid/sum_m01 - summator</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/circ - circle</ClosedNode>
+         <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/close3 - closing3x3</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/conversion - rgb2ycbcr</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/conversion - rgb2ycbcr/delay_de - delay</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/conversion - rgb2ycbcr/delay_hsync - delay</ClosedNode>
@@ -38,6 +38,10 @@
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/dvi_tx - dvi_encoder_top</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/dvi_tx - dvi_encoder_top/pixel2x - convert_30to15_fifo</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/med5 - median5x5</ClosedNode>
+         <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/open3 - opening3x3</ClosedNode>
+         <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/open3 - opening3x3/dilate3 - dilation3x3</ClosedNode>
+         <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/open3 - opening3x3/erode3 - erosion3x3</ClosedNode>
+         <ClosedNode>/mean_filter3x3 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|mean_filter3x3.v</ClosedNode>
          <ClosedNode>/median5x5 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|median5x5.v</ClosedNode>
          <ClosedNode>/opening3x3 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|opening3x3.v</ClosedNode>
          <ClosedNode>/rgb2hsv |home|lsriw|SR|Wojciech Gumula|repo|skin_color_segm|rgb2hsv.v</ClosedNode>
@@ -48,13 +52,13 @@
          <ClosedNode>/tb_hdmi |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|tb_src|tb_hdmi.v/conversion - rgb2ycbcr/delay_vsync - delay</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>src/AtlysGeneral.ucf (/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/src/AtlysGeneral.ucf)</SelectedItem>
+         <SelectedItem>mean_filter3x3 (/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/mean_filter3x3.v)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >3</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000178000000020000000000000000000000000200000064ffffffff000000810000000300000002000001780000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000019c000000020000000000000000000000000200000064ffffffff0000008100000003000000020000019c0000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>src/AtlysGeneral.ucf (/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/src/AtlysGeneral.ucf)</CurrentItem>
+      <CurrentItem>mean_filter3x3 (/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/mean_filter3x3.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_VERILOG" guiview="Process" >
       <ClosedNodes>
@@ -72,7 +76,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f2000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f20000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000101000000010000000100000000000000000000000064ffffffff000000810000000000000001000001010000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem></CurrentItem>
    </ItemView>
@@ -129,6 +133,7 @@
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/conversion - rgb2ycbcr/delay_vsync - delay</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/dvi_rx1 - dvi_decoder</ClosedNode>
          <ClosedNode>/hdmi_main |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|src|hdmi_main.v/dvi_tx - dvi_encoder_top</ClosedNode>
+         <ClosedNode>/mean_filter3x3 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|mean_filter3x3.v</ClosedNode>
          <ClosedNode>/median5x5 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|median5x5.v</ClosedNode>
          <ClosedNode>/opening3x3 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|opening3x3.v</ClosedNode>
          <ClosedNode>/rgb2hsv |home|lsriw|SR|Wojciech Gumula|repo|skin_color_segm|rgb2hsv.v</ClosedNode>
@@ -156,6 +161,7 @@
          <ClosedNode>/tb_hdmi |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|tb_src|tb_hdmi.v/conversion - rgb2ycbcr/delay_de - delay</ClosedNode>
          <ClosedNode>/tb_hdmi |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|tb_src|tb_hdmi.v/conversion - rgb2ycbcr/delay_hsync - delay</ClosedNode>
          <ClosedNode>/tb_hdmi |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|tb_src|tb_hdmi.v/conversion - rgb2ycbcr/delay_vsync - delay</ClosedNode>
+         <ClosedNode>/tb_mean_filter3x3 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|tb_mean_filter3x3.v</ClosedNode>
          <ClosedNode>/tb_median5x5 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|tb_median5x5.v</ClosedNode>
          <ClosedNode>/tb_opening3x3 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|tb_opening3x3.v</ClosedNode>
          <ClosedNode>/tb_opening3x3 |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|tb_opening3x3.v/open3 - opening3x3</ClosedNode>
@@ -166,13 +172,13 @@
          <ClosedNode>/tb_ycbcr_thresholding |home|vka|Programming|VHDL|workspace|sysrek|skin_color_segm|tb_ycbcr_thresholding.v</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>tb_closing3x3 (/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/tb_closing3x3.v)</SelectedItem>
+         <SelectedItem>tb_mean_filter3x3 (/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/tb_mean_filter3x3.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >5</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000178000000020000000000000000000000000200000064ffffffff000000810000000300000002000001780000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>tb_closing3x3 (/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/tb_closing3x3.v)</CurrentItem>
+      <CurrentItem>tb_mean_filter3x3 (/home/vka/Programming/VHDL/workspace/sysrek/skin_color_segm/tb_mean_filter3x3.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -229,7 +235,7 @@
       <CurrentItem/>
    </ItemView>
    <SourceProcessView>000000ff0000000000000002000001250000009101000000060100000002</SourceProcessView>
-   <CurrentView>Implementation</CurrentView>
+   <CurrentView>Behavioral Simulation</CurrentView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_XCO" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>

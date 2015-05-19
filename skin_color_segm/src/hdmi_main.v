@@ -65,7 +65,7 @@ module hdmi_main
   output wire [3:0] TX0_TMDSB,
   
   	
-  input  wire [2:0] SW,
+  input  wire [3:0] SW,
 
   output wire [7:0] LED
 );
@@ -365,6 +365,122 @@ assign circle_r = ((inside_circle == 1'b1) ? 8'hFF : binary);
 assign circle_g = ((inside_circle == 1'b1) ? 8'h00 : binary);
 assign circle_b = ((inside_circle == 1'b1) ? 8'h00 : binary);
 
+//mediana
+reg [7:0] median_r;
+reg [7:0] median_g;
+reg [7:0] median_b;
+
+wire median;
+wire median_de;
+wire median_vsync;
+wire median_hsync;
+
+median5x5 #
+(
+	.H_SIZE(10'd864)
+)
+med5
+(
+	.clk(rx_pclk),
+	.ce(1'b1),
+	.rst(1'b0),
+
+	.mask((binary == 8'hFF) ? 1'b1 : 1'b0),
+	.in_de(conv_de),
+	.in_vsync(conv_vsync),
+	.in_hsync(conv_hsync),
+
+	.median(median),
+	.out_de(median_de),
+	.out_vsync(median_vsync),
+	.out_hsync(median_hsync)
+
+);
+
+always @(posedge rx_pclk) begin
+	median_r = (median) ? 8'hFF : 8'h00;
+	median_g = (median) ? 8'hFF : 8'h00;
+	median_b = (median) ? 8'hFF : 8'h00;
+end
+
+
+//otwarcie
+reg [7:0] opening_r;
+reg [7:0] opening_g;
+reg [7:0] opening_b;
+
+wire opening;
+wire opening_de;
+wire opening_vsync;
+wire opening_hsync;
+
+opening3x3 #
+(
+	.H_SIZE(10'd864)
+)
+open3
+(
+	.clk(rx_pclk),
+	.ce(1'b1),
+	.rst(1'b0),
+
+	.mask((binary == 8'hFF) ? 1'b1 : 1'b0),
+	.in_de(conv_de),
+	.in_vsync(conv_vsync),
+	.in_hsync(conv_hsync),
+
+	.opened(opening),
+	.out_de(opening_de),
+	.out_vsync(opening_vsync),
+	.out_hsync(opening_hsync)
+
+);
+
+always @(posedge rx_pclk) begin
+	opening_r = (opening) ? 8'hFF : 8'h00;
+	opening_g = (opening) ? 8'hFF : 8'h00;
+	opening_b = (opening) ? 8'hFF : 8'h00;
+end
+
+
+//zamkniecie
+reg [7:0] closing_r;
+reg [7:0] closing_g;
+reg [7:0] closing_b;
+
+wire closing;
+wire closing_de;
+wire closing_vsync;
+wire closing_hsync;
+
+closing3x3 #
+(
+	.H_SIZE(10'd864)
+)
+close3
+(
+	.clk(rx_pclk),
+	.ce(1'b1),
+	.rst(1'b0),
+
+	.mask((binary == 8'hFF) ? 1'b1 : 1'b0),
+	.in_de(conv_de),
+	.in_vsync(conv_vsync),
+	.in_hsync(conv_hsync),
+
+	.closed(closing),
+	.out_de(closing_de),
+	.out_vsync(closing_vsync),
+	.out_hsync(closing_hsync)
+
+);
+
+always @(posedge rx_pclk) begin
+	closing_r = (closing) ? 8'hFF : 8'h00;
+	closing_g = (closing) ? 8'hFF : 8'h00;
+	closing_b = (closing) ? 8'hFF : 8'h00;
+end
+
   // -----------------------------------------------------------------------------
   // HDMI output port 
   // -----------------------------------------------------------------------------  
@@ -385,12 +501,12 @@ assign circle_b = ((inside_circle == 1'b1) ? 8'h00 : binary);
   // umozliwiajacego wyswietlanie roznych wyjsc
   // w zaleznosci od wartosci SW
   
-  wire [7:0] 	r_mux 	[5:0];
-  wire [7:0] 	g_mux 	[5:0];
-  wire [7:0] 	b_mux 	[5:0];
-  wire			de_mux	[5:0];
-  wire			hs_mux	[5:0];
-  wire			vs_mux	[5:0];
+  wire [7:0] 	r_mux 	[8:0];
+  wire [7:0] 	g_mux 	[8:0];
+  wire [7:0] 	b_mux 	[8:0];
+  wire			de_mux	[8:0];
+  wire			hs_mux	[8:0];
+  wire			vs_mux	[8:0];
   
   //RGB
   assign r_mux[0] = rx_red;
@@ -439,6 +555,30 @@ assign circle_b = ((inside_circle == 1'b1) ? 8'h00 : binary);
   assign de_mux[5] = conv_de;
   assign hs_mux[5] = conv_hsync;
   assign vs_mux[5] = conv_vsync; 
+  
+  //median
+  assign r_mux[6] = median_r;
+  assign g_mux[6] = median_g;
+  assign b_mux[6] = median_b;
+  assign de_mux[6] = median_de;
+  assign hs_mux[6] = median_hsync;
+  assign vs_mux[6] = median_vsync; 
+
+  //open
+  assign r_mux[7] = opening_r;
+  assign g_mux[7] = opening_g;
+  assign b_mux[7] = opening_b;
+  assign de_mux[7] = opening_de;
+  assign hs_mux[7] = opening_hsync;
+  assign vs_mux[7] = opening_vsync; 
+  
+  //close
+  assign r_mux[8] = closing_r;
+  assign g_mux[8] = closing_g;
+  assign b_mux[8] = closing_b;
+  assign de_mux[8] = closing_de;
+  assign hs_mux[8] = closing_hsync;
+  assign vs_mux[8] = closing_vsync; 
 
   // -----------------------------------------------------------------------------
   // HDMI output port signal assigments 

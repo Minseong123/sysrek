@@ -241,10 +241,10 @@ ycbcr_thresholding thresholding
 	.Cb(Cb),
 	.Cr(Cr),
 	
-	.Ta(8'd40),
-	.Tb(8'd120),
-	.Tc(8'd120),
-	.Td(8'd200),
+	.Ta(8'd76),//40),
+	.Tb(8'd128),//120),
+	.Tc(8'd132),//120),
+	.Td(8'd176),//200),
 	
 	.binary(binary)
 
@@ -481,6 +481,40 @@ always @(posedge rx_pclk) begin
 	closing_b = (closing) ? 8'hFF : 8'h00;
 end
 
+//filtr usredniajacy
+wire [7:0] mean_Y;
+wire [7:0] mean_Cb;
+wire [7:0] mean_Cr;
+wire mean_de;
+wire mean_vsync;
+wire mean_hsync;
+
+mean_filter3x3 #
+(
+	.H_SIZE(10'd864)
+)
+mean_f
+(
+	.clk(rx_pclk),
+	.ce(1'b1),
+	.rst(1'b0),
+
+	.in_Y(Y),
+	.in_Cb(Cb),
+	.in_Cr(Cr),
+	.in_de(conv_de),
+	.in_vsync(conv_vsync),
+	.in_hsync(conv_hsync),
+	
+	.out_Y(mean_Y),
+	.out_Cb(mean_Cb),
+	.out_Cr(mean_Cr),
+	.out_de(mean_de),
+	.out_vsync(mean_vsync),
+	.out_hsync(mean_hsync)   
+
+);
+
   // -----------------------------------------------------------------------------
   // HDMI output port 
   // -----------------------------------------------------------------------------  
@@ -501,12 +535,12 @@ end
   // umozliwiajacego wyswietlanie roznych wyjsc
   // w zaleznosci od wartosci SW
   
-  wire [7:0] 	r_mux 	[8:0];
-  wire [7:0] 	g_mux 	[8:0];
-  wire [7:0] 	b_mux 	[8:0];
-  wire			de_mux	[8:0];
-  wire			hs_mux	[8:0];
-  wire			vs_mux	[8:0];
+  wire [7:0] 	r_mux 	[9:0];
+  wire [7:0] 	g_mux 	[9:0];
+  wire [7:0] 	b_mux 	[9:0];
+  wire			de_mux	[9:0];
+  wire			hs_mux	[9:0];
+  wire			vs_mux	[9:0];
   
   //RGB
   assign r_mux[0] = rx_red;
@@ -579,6 +613,14 @@ end
   assign de_mux[8] = closing_de;
   assign hs_mux[8] = closing_hsync;
   assign vs_mux[8] = closing_vsync; 
+  
+  //mean
+  assign r_mux[9] = mean_Y;
+  assign g_mux[9] = mean_Cb;
+  assign b_mux[9] = mean_Cr;
+  assign de_mux[9] = mean_de;
+  assign hs_mux[9] = mean_hsync;
+  assign vs_mux[9] = mean_vsync; 
 
   // -----------------------------------------------------------------------------
   // HDMI output port signal assigments 

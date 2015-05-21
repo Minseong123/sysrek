@@ -43,7 +43,7 @@ wire erosion_hsync;
 
 erosion3x3 #
 (
-	.H_SIZE(10'd83)
+	.H_SIZE(H_SIZE)
 )
 erode3
 (
@@ -69,7 +69,7 @@ wire dilation_hsync;
 
 dilation3x3 #
 (
-	.H_SIZE(10'd83)
+	.H_SIZE(H_SIZE)
 )
 dilate3
 (

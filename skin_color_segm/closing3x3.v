@@ -43,7 +43,7 @@ wire dilation_hsync;
 
 dilation3x3 #
 (
-	.H_SIZE(10'd83)
+	.H_SIZE(H_SIZE)
 )
 dilate3
 (
@@ -69,7 +69,7 @@ wire erosion_hsync;
 
 erosion3x3 #
 (
-	.H_SIZE(10'd83)
+	.H_SIZE(H_SIZE)
 )
 erode3
 (
@@ -89,9 +89,9 @@ erode3
 
 );
 
-assign out_de = dilation_de;
-assign out_hsync = dilation_hsync;
-assign out_vsync = dilation_vsync;
+assign out_de = erosion_de;
+assign out_hsync = erosion_hsync;
+assign out_vsync = erosion_vsync;
 assign closed = erosion;
 
 endmodule

@@ -25,18 +25,18 @@ module sobel #(
 	input ce,
 	input rst,
 	
-	input [7:0] in_bin,
+	input [7:0] in_image,
 	input in_de,
 	input in_vsync,
 	input in_hsync,
 	
-	output [7:0] out_bin,
+	output [7:0] out_sobel,
 	output out_de,
 	output out_vsync,
 	output out_hsync   
 	);
 	
-	wire [10:0] delay_line11;
+wire [10:0] delay_line11;
 reg  [10:0] delay_line12 [2:0];
 wire [10:0] delay_line21;
 reg  [10:0] delay_line22 [2:0];
@@ -47,7 +47,8 @@ reg signed [11:0] sum_linesX[2:0];
 reg signed [11:0] sum_finalX;
 reg signed [11:0] sum_linesY[2:0];
 reg signed [11:0] sum_finalY;
-assign delay_line11 = {in_bin, in_de, in_hsync, in_vsync};
+
+assign delay_line11 = {in_image, in_de, in_hsync, in_vsync};
 
 //pojedyncze opoznienia dla piksela
 genvar i;
@@ -109,9 +110,12 @@ begin
 		//-2A + 0 +2C
 		sum_linesX[1] <= - {3'b0, delay_line22[0][10:3], 1'b0} + {3'b0,delay_line22[2][10:3], 1'b0};
 		////-A + 0 + C
-		sum_linesX[2] <= {4'b0, delay_line32[0][10:3]} + {4'b0,delay_line32[2][10:3]};
+		sum_linesX[2] <= -{4'b0, delay_line32[0][10:3]} + {4'b0,delay_line32[2][10:3]};
 
 		sum_finalX <= sum_linesX[0] + sum_linesX[1] + sum_linesX[2];
+		
+		if(sum_finalY < 12'b0) sum_finalY <= -sum_finalY;
+		if(sum_finalX < 12'b0) sum_finalX <= -sum_finalX;
 	end
 end
 
@@ -140,39 +144,12 @@ assign out_de = d_dhv[2];
 assign out_hsync = d_dhv[1];
 assign out_vsync = d_dhv[0];
 
-reg [7:0] mean_latch = 0;
+reg signed[11:0] sobel_latch = 0;
 
 always @(posedge clk)
 begin
-//	if(context_valid) mean_latch <= sum_final[11:4];
+	if(context_valid) sobel_latch <= sum_finalX + sum_finalY;
 end;
-assign out_Y = mean_latch;
+assign out_sobel = sobel_latch[10:3];
 
-//opoznienie sygnalow Cb, Cr
-delay #
-(
-	.N(8),
-	.DELAY(2 + H_SIZE + 1)
-)
-delay_cb
-(
-	.d(in_Cb),
-	.ce(1'b1),
-	.clk(clk),
-	.q(out_Cb)
-);
-delay #
-(
-	.N(8),
-	.DELAY(2 + H_SIZE + 1)
-)
-delay_cr
-(
-	.d(in_Cr),
-	.ce(1'b1),
-	.clk(clk),
-	.q(out_Cr)
-);
-
-	
-	endmodule
+endmodule

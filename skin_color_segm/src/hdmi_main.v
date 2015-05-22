@@ -515,6 +515,28 @@ mean_f
 
 );
 
+wire [7:0] sobel_img;
+wire sobel_de;
+wire sobel_vsync;
+wire sobel_hsync;
+sobel #(
+    	.H_SIZE(10'd864) // domylny rozmiar obrazu to szeroko = 64 piksele
+) sob(
+	.clk(rx_pclk),
+	.ce(1'b1),
+	.rst(1'b0),
+	
+	.in_image(rx_red),
+	.in_de(rx_de),
+	.in_vsync(rx_vsync),
+	.in_hsync(rx_hsync),
+	
+	.out_sobel(sobel_img),
+	.out_de(sobel_de),
+	.out_vsync(sobel_vsync),
+	.out_hsync(sobel_hsync)   
+	);
+
   // -----------------------------------------------------------------------------
   // HDMI output port 
   // -----------------------------------------------------------------------------  
@@ -535,12 +557,12 @@ mean_f
   // umozliwiajacego wyswietlanie roznych wyjsc
   // w zaleznosci od wartosci SW
   
-  wire [7:0] 	r_mux 	[9:0];
-  wire [7:0] 	g_mux 	[9:0];
-  wire [7:0] 	b_mux 	[9:0];
-  wire			de_mux	[9:0];
-  wire			hs_mux	[9:0];
-  wire			vs_mux	[9:0];
+  wire [7:0] 	r_mux 	[10:0];
+  wire [7:0] 	g_mux 	[10:0];
+  wire [7:0] 	b_mux 	[10:0];
+  wire			de_mux	[10:0];
+  wire			hs_mux	[10:0];
+  wire			vs_mux	[10:0];
   
   //RGB
   assign r_mux[0] = rx_red;
@@ -621,6 +643,15 @@ mean_f
   assign de_mux[9] = mean_de;
   assign hs_mux[9] = mean_hsync;
   assign vs_mux[9] = mean_vsync; 
+  
+  //sobel
+  assign r_mux[10] = sobel_img;
+  assign g_mux[10] = sobel_img;
+  assign b_mux[10] = sobel_img;
+  assign de_mux[10] = sobel_de;
+  assign hs_mux[10] = sobel_hsync;
+  assign vs_mux[10] = sobel_vsync; 
+  
 
   // -----------------------------------------------------------------------------
   // HDMI output port signal assigments 

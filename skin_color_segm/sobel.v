@@ -93,7 +93,7 @@ delayLinieBRAM_WP long_delay2
 always @(posedge clk)
 begin
 	//wyznaczanie sum
-	if(context_valid) begin
+	//if(context_valid) begin
 	
 		//sobel Y
 		//-A - 2B - C
@@ -116,7 +116,7 @@ begin
 		
 		if(sum_finalY < 12'b0) sum_finalY <= -sum_finalY;
 		if(sum_finalX < 12'b0) sum_finalX <= -sum_finalX;
-	end
+	//end
 end
 
 wire context_valid;
@@ -130,7 +130,7 @@ wire [2:0] d_dhv;
 delay #
 (
 	.N(3),
-	.DELAY(2)
+	.DELAY(4)
 )
 dhv
 (
@@ -148,7 +148,7 @@ reg signed[11:0] sobel_latch = 0;
 
 always @(posedge clk)
 begin
-	if(context_valid) sobel_latch <= sum_finalX + sum_finalY;
+	/*if(context_valid)*/ sobel_latch <= sum_finalX + sum_finalY;
 end;
 assign out_sobel = sobel_latch[10:3];
 

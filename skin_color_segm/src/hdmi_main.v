@@ -520,16 +520,16 @@ wire sobel_de;
 wire sobel_vsync;
 wire sobel_hsync;
 sobel #(
-    	.H_SIZE(10'd864) // domylny rozmiar obrazu to szeroko = 64 piksele
+    	.H_SIZE(10'd864)
 ) sob(
 	.clk(rx_pclk),
 	.ce(1'b1),
 	.rst(1'b0),
 	
-	.in_image(rx_red),
-	.in_de(rx_de),
-	.in_vsync(rx_vsync),
-	.in_hsync(rx_hsync),
+	.in_image(binary),
+	.in_de(conv_de),
+	.in_vsync(conv_vsync),
+	.in_hsync(conv_hsync),
 	
 	.out_sobel(sobel_img),
 	.out_de(sobel_de),

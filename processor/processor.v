@@ -20,6 +20,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 module processor(
     input clk100
+	 //input [7:0] sw,
+	 //output [7:0] led
     );
 
 wire [7:0] PC_addr;
@@ -39,29 +41,28 @@ i_mem inst_memory (
 );
 
 // dekodowanie polecenia
-reg [1:0] pc_op;
-reg [1:0] alu_op;
-reg [2:0] rx_op;
-reg imm_op;
-reg [2:0] ry_op;
-reg rd_op;
-reg [2:0] d_op;
-reg [7:0] imm;
+reg [1:0] pc_op = 2'b0;
+reg [1:0] alu_op = 2'b0;
+reg [2:0] rx_op = 3'b0;
+reg imm_op = 1'b0;
+reg [2:0] ry_op = 2'b0;
+reg rd_op = 1'b0;
+reg [2:0] d_op = 3'b0;
+reg [7:0] imm = 8'b0;
 always @(posedge clk100)
 begin
-	pc_op = inst_out[25:24];
-	alu_op = inst_out[21:20];
-	rx_op = inst_out[18:16];
-	imm_op = inst_out[15];
-	ry_op = inst_out[14:12];
-	rd_op = inst_out[11];
-	d_op = inst_out[10:8];
-	imm = inst_out[7:0];
+	pc_op <= inst_out[25:24];
+	alu_op <= inst_out[21:20];
+	rx_op <= inst_out[18:16];
+	imm_op <= inst_out[15];
+	ry_op <= inst_out[14:12];
+	rd_op <= inst_out[11];
+	d_op <= inst_out[10:8];
+	imm <= inst_out[7:0];
 end
 
 wire [7:0] dekoder_out; 
 demux8x1 dekoder (
-	.clk(clk),
 	.address(d_op),
 	.in(1'b1),
 	.out(dekoder_out)
@@ -69,21 +70,22 @@ demux8x1 dekoder (
 wire [7:0] rd_mux_out;
 mux2x8 rd_mux (
 	.address(rd_op),
-	.in0(alu_res), //todo
+	.in0(alu_res),
 	.in1(data_out),
 	.out(rd_mux_out)
 );
 
 wire [7:0] pc_mux_out;
+wire [7:0] inc_addr;
+assign inc_addr = PC_addr + 8'b1;
 mux2x8 pc_mux (
 	.address(jmp_out),
 	.in0(alu_res),
-	.in1(pc_addr + 8'b1),
+	.in1(inc_addr),
 	.out(pc_mux_out)
 );
 
 //definicje rejestrow
-reg [7:0] R0_in;
 wire [7:0] R0_out;
 wire [7:0] R1_out;
 wire [7:0] R2_out;
@@ -136,7 +138,7 @@ register R6 (
 register PC (
 	.clk(clk100),
 	.ce(1'b1),
-	.d(cp_mux_out),
+	.d(pc_mux_out),
 	.q(PC_addr)
 );
 
@@ -188,11 +190,15 @@ ALU alu (
 );
 
 mux8x8 alu_mux ( //4x8!!
-	.address(alu_op),
+	.address({1'b0, alu_op}),
 	.in0(alu_and),
 	.in1(alu_sum),
 	.in2(alu_cmp),
 	.in3(imm_mux_out),
+	.in4(8'b0),
+	.in5(8'b0),
+	.in6(8'b0),
+	.in7(8'b0),
 	.out(alu_res)
 );
 

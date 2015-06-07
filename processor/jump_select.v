@@ -24,14 +24,11 @@ module jump_select(
     output out
     );
 	 
-reg [3:0] results;
-always
-begin
-	results[0] <= 1'b0; //jmp
-	results[1] <= (cmp_res > 8'b0) ? 1'b0 : 1'b1;
-	results[2] <= (cmp_res == 8'b0) ? 1'b0 : 1'b1;
-	results[3] <= 1'b1; //no jmp
-end;
+wire [3:0] results;
+assign results[0] = 1'b1; //no jmp
+assign results[1] = 1'b0; //jmp
+assign results[2] = (cmp_res > 8'b0) ? 1'b0 : 1'b1;
+assign results[3] = (cmp_res == 8'b0) ? 1'b0 : 1'b1;
 
 assign out = results[pc_op];
 

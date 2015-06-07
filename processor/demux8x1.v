@@ -19,19 +19,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module demux8x1(
-    input clk,
     input [2:0] address,
     input in,
     output [7:0] out
     );
-reg [7:0] outs = 8'b0;
-
-always @(posedge clk)
-begin
-	outs = 8'b0;
-	outs[address] = in;
-end
 		
-assign out = outs;
+assign out = 8'h01 << address;
 
 endmodule

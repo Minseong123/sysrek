@@ -1,3 +1,4 @@
+
 def int_to_binary(num, length, is_param = False):
 	if not is_param:
 		b = bin(num)
@@ -19,7 +20,7 @@ def parse_arg(inst, arg, args):
 	else:
 		return int_to_binary(instructions[inst][arg], l)
 
-def parse_line(line):
+def parse_line(line, debug = False):
 	line = line.strip(',')
 	elems = line.split(' ')
 	inst = elems[0]
@@ -29,14 +30,17 @@ def parse_line(line):
 	binary = '0' * 6 + '{}' + '00' + '{}' + '0' + '{}' + '{}' + '0' * 3 + '{}' + '{}' + '{}'
 	pc_op = parse_arg(inst, 'pc_op', args)
 	alu_op = parse_arg(inst, 'alu_op', args)
-	rx_op = parse_arg(inst, 'alu_op', args)
-	imm_op = parse_arg(inst, 'alu_op', args)
+	rx_op = parse_arg(inst, 'rx_op', args)
+	imm_op = parse_arg(inst, 'imm_op', args)
 	ry_op = parse_arg(inst, 'ry_op', args)
 	rd_op = parse_arg(inst, 'rd_op', args)
 	d_op = parse_arg(inst, 'd_op', args)
 	imm = parse_arg(inst, 'imm', args)
 	binary = '0' * 6 + pc_op + '00' + alu_op + '0' + rx_op + imm_op + ry_op + rd_op + d_op + imm
-	return '{0:0>8x}'.format(int(binary, 2))
+	if debug:
+		return binary
+	else:
+		return '{0:0>8x}'.format(int(binary, 2))
 
 instructions = {}
 # schemat mapy:
@@ -132,7 +136,7 @@ instructions['and'] = {
 	'd_op': 'a',
 	'imm': 0
 }
-instructions['addi'] = {
+instructions['andi'] = {
 	'pc_op': 0,
 	'alu_op': 0,
 	'rx_op': 'b',
@@ -182,7 +186,12 @@ instructions['movi'] = {
 	'd_op': 'a',
 	'imm': 'b'
 }
-
+insts = []
 with open('input.asm', 'r') as f:
 	for l in f.readlines():
-		print(parse_line(l[:-1]) + ' # ' + l[:-1])
+		if l == '\n':
+			l = 'nop\n'
+		insts.append([parse_line(l.strip(), debug=False), l.strip()])
+
+for i, v in enumerate(insts):
+	print('assign program[' + str(i) + ']=32\'h' + v[0] + '; // ' + str(hex(i)) + ': ' + v[1])

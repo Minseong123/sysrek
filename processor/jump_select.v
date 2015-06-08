@@ -27,8 +27,8 @@ module jump_select(
 wire [3:0] results;
 assign results[0] = 1'b1; //no jmp
 assign results[1] = 1'b0; //jmp
-assign results[2] = (cmp_res > 8'b0) ? 1'b0 : 1'b1;
-assign results[3] = (cmp_res == 8'b0) ? 1'b0 : 1'b1;
+assign results[2] = (cmp_res == 8'b0) ? 1'b0 : 1'b1; // jnz
+assign results[3] = (cmp_res == 8'b1) ? 1'b0 : 1'b1; // jz
 
 assign out = results[pc_op];
 
